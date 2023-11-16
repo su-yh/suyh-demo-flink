@@ -10,10 +10,12 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.util.Collector;
 
 /**
+ * DataSet API 实现word count（不推荐）
+ *
  * @author suyh
  * @since 2023-11-16
  */
-public class WordCountBatchDemo {
+public class WordCount01BatchDemo {
     public static void main(String[] args) throws Exception {
         // 1. 创建执行环境
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
