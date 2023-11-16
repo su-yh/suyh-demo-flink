@@ -15,7 +15,7 @@ public class WordCount03StreamUnboundedDemo {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStreamSource<String> socketDS = env.socketTextStream("139.9.50.208", 7777);
+        DataStreamSource<String> socketDS = env.socketTextStream("www.suyh.com.cn", 7777);
 
         SingleOutputStreamOperator<Tuple2<String, Integer>> sum = socketDS.flatMap(
                 (String value, Collector<Tuple2<String, Integer>> out) -> {
