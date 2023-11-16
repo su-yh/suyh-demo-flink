@@ -15,13 +15,13 @@ import org.apache.flink.util.Collector;
  */
 public class WordCountBatchDemo {
     public static void main(String[] args) throws Exception {
-        // TODO: 1. 创建执行环境
+        // 1. 创建执行环境
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
-        // TODO: 2. 读取数据：从文件中读取
-        DataSource<String> lineDS = env.readTextFile("demo-01-helloworld/input/word.txt");
+        // 2. 读取数据：从文件中读取
+        DataSource<String> lineDS = env.readTextFile("demo-01-wordCount/input/word.txt");
 
-        // TODO: 3. 按行切分、转换 (word, 1)
+        // 3. 按行切分、转换 (word, 1)
         FlatMapOperator<String, Tuple2<String, Integer>> wordAndOne = lineDS.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
             @Override
             public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
@@ -37,11 +37,11 @@ public class WordCountBatchDemo {
         });
 
 
-        // TODO: 4. 按单词分组
+        // 4. 按单词分组
         // 按索引位置分组，word 在Tuple 中的位置 是第一个所以 这里传入: 0
         UnsortedGrouping<Tuple2<String, Integer>> wordAndOneGroupBy = wordAndOne.groupBy(0);
 
-        // TODO: 5. 按分组内聚合
+        // 5. 按分组内聚合
         // 因为Integer 的位置是第二个，所以这里传入的值是: 1
         AggregateOperator<Tuple2<String, Integer>> sum = wordAndOneGroupBy.sum(1);
 

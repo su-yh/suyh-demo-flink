@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>demo-01-helloWorld</module>
+        <module>demo-01-wordCount</module>
     </modules>
 
 

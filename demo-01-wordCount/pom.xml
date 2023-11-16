@@ -10,7 +10,7 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>demo-01-helloWorld</artifactId>
+    <artifactId>demo-01-wordCount</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
