@@ -1,2 +1,34 @@
-# suyh-demo-flink
+## suyh-demo-flink
 flink 学习demo
+
+
+
+
+
+## flink 的一些关键术语
+
+- 并行度
+- slot 槽
+- 分区、分组
+- 分流
+- 合流
+- `checkpoint`
+- `Watermark` 水位线、水印
+- 其他
+
+
+
+
+
+
+
+## 问题
+
+- `springboot` 如何集成`flink`
+
+  ```txt
+  主要是正常情况我们都使用spring-boot-web 组件，如果不使用web 组件，那么spring boot 启动之后很快就会程序退出。
+  针对这个问题，我们要如何阻塞spring boot 应用，让其阻塞住，而不退出程序呢？
+  ```
+
+- 其他
