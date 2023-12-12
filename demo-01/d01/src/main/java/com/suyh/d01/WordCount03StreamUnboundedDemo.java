@@ -2,7 +2,6 @@ package com.suyh.d01;
 
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -14,13 +13,13 @@ import org.apache.flink.util.Collector;
  */
 public class WordCount03StreamUnboundedDemo {
     public static void main(String[] args) throws Exception {
-//        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // IDEA 运行时，也可以看到webui, 一般用于本地测试
         // 需要引入一个依赖: flink-runtime-web
         // 然后就可以在本地使用 http://localhost:8081 进行访问 了。
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
+        // StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
 
-        env.setParallelism(3);  // 全局指定并行度为：3
+        env.setParallelism(1);  // 全局指定并行度为：3
 
         // 利用netcat 监听7777 端口： nc -lk 7777
         DataStreamSource<String> socketDS = env.socketTextStream("192.168.8.34", 7777);
