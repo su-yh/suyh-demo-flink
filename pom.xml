@@ -31,7 +31,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>demo-01-wordCount</module>
         <module>atguigu</module>
+        <module>demo-01</module>
     </modules>
 </project>

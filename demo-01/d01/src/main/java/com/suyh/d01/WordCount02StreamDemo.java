@@ -1,4 +1,4 @@
-package com.suyh.demo;
+package com.suyh.d01;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.functions.KeySelector;
@@ -21,7 +21,7 @@ public class WordCount02StreamDemo {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // 2. 读取数据
-        DataStreamSource<String> lineDS = env.readTextFile("demo-01-wordCount/input/word.txt");
+        DataStreamSource<String> lineDS = env.readTextFile("demo-01/d01/input/word.txt");
 
         // 3. 处理数据：切换、转换、分组、聚合
         SingleOutputStreamOperator<Tuple2<String, Integer>> wordAndOne = lineDS.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {

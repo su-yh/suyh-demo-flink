@@ -1,4 +1,4 @@
-package com.suyh.demo;
+package com.suyh.d01;
 
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.tuple.Tuple2;

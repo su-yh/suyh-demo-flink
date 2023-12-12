@@ -1,4 +1,4 @@
-package com.suyh.demo;
+package com.suyh.d01;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.ExecutionEnvironment;
@@ -18,13 +18,15 @@ import org.apache.flink.util.Collector;
 public class WordCount01BatchDemo {
     public static void main(String[] args) throws Exception {
         // 1. 创建执行环境
+        // 它会自己识别是本地环境还是远程环境
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
         // 2. 读取数据：从文件中读取
-        DataSource<String> lineDS = env.readTextFile("demo-01-wordCount/input/word.txt");
+        DataSource<String> lineDS = env.readTextFile("demo-01/d01/input/word.txt");
 
         // 3. 按行切分、转换 (word, 1)
-        FlatMapOperator<String, Tuple2<String, Integer>> wordAndOne = lineDS.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
+        FlatMapOperator<String, Tuple2<String, Integer>> wordAndOne
+                = lineDS.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
             @Override
             public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
                 // value: 一行数据
