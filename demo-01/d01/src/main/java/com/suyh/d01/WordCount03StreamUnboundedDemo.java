@@ -23,7 +23,7 @@ public class WordCount03StreamUnboundedDemo {
         env.setParallelism(3);  // 全局指定并行度为：3
 
         // 利用netcat 监听7777 端口： nc -lk 7777
-        DataStreamSource<String> socketDS = env.socketTextStream("localhost", 7777);
+        DataStreamSource<String> socketDS = env.socketTextStream("192.168.8.34", 7777);
 
         SingleOutputStreamOperator<Tuple2<String, Integer>> sum = socketDS.flatMap(
                 (String value, Collector<Tuple2<String, Integer>> out) -> {
