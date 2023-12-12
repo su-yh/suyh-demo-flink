@@ -4,6 +4,14 @@
 
 
 
+## provided 的本地运行
+
+idea 环境
+
+![image-20231212154645707](demo01.assets/image-20231212154645707.png)
+
+
+
 
 
 ## 分层api
