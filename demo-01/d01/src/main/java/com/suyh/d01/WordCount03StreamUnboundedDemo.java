@@ -17,12 +17,13 @@ public class WordCount03StreamUnboundedDemo {
 //        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // IDEA 运行时，也可以看到webui, 一般用于本地测试
         // 需要引入一个依赖: flink-runtime-web
-        // 然后就可以在本地使用 http://localhost:8081/#/overview 进行访问 了。
+        // 然后就可以在本地使用 http://localhost:8081 进行访问 了。
         StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
 
         env.setParallelism(3);  // 全局指定并行度为：3
 
-        DataStreamSource<String> socketDS = env.socketTextStream("www.suyh.com.cn", 7777);
+        // 利用netcat 监听7777 端口： nc -lk 7777
+        DataStreamSource<String> socketDS = env.socketTextStream("localhost", 7777);
 
         SingleOutputStreamOperator<Tuple2<String, Integer>> sum = socketDS.flatMap(
                 (String value, Collector<Tuple2<String, Integer>> out) -> {

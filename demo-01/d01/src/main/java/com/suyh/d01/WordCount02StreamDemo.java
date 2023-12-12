@@ -24,7 +24,8 @@ public class WordCount02StreamDemo {
         DataStreamSource<String> lineDS = env.readTextFile("demo-01/d01/input/word.txt");
 
         // 3. 处理数据：切换、转换、分组、聚合
-        SingleOutputStreamOperator<Tuple2<String, Integer>> wordAndOne = lineDS.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
+        SingleOutputStreamOperator<Tuple2<String, Integer>> wordAndOne
+                = lineDS.flatMap(new FlatMapFunction<String, Tuple2<String, Integer>>() {
             @Override
             public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
                 // value: 一行数据
@@ -39,7 +40,11 @@ public class WordCount02StreamDemo {
         });
 
         // 3.2 分组
-        KeyedStream<Tuple2<String, Integer>, String> wordAndOneKS = wordAndOne.keyBy(new KeySelector<Tuple2<String, Integer>, String>() {
+        KeyedStream<Tuple2<String, Integer>, String> wordAndOneKS
+                = wordAndOne.keyBy(new KeySelector<Tuple2<String, Integer>, String>() {
+            /**
+             * 在这个方法里面提取出分组key
+             */
             @Override
             public String getKey(Tuple2<String, Integer> value) throws Exception {
                 return value.f0;
