@@ -12,6 +12,7 @@
         <module>d01</module>
         <module>d02</module>
         <module>d03-source</module>
+        <module>d04-transform</module>
     </modules>
 
     <properties>
