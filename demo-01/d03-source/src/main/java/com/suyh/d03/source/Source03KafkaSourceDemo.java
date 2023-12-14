@@ -1,4 +1,4 @@
-package com.atguigu.source;
+package com.suyh.d03.source;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
@@ -6,33 +6,36 @@ import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
-import java.time.Duration;
-
 /**
- * TODO
+ * TODO: suyh - 没有成功，报错了：Timed out waiting for a node assignment. Call: describeTopics
  *
  * @author cjp
  * @version 1.0
  */
-public class KafkaSourceDemo {
+public class Source03KafkaSourceDemo {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
 
-        // TODO 从Kafka读： 新Source架构
+        // 需要进入到kafka 生产者模式
+        // 进入到docker 容器：sudo docker exec -it q18qetlnsh2bnu_kafka-kafka-1 /bin/bash
+        // 进入到kafka 控制台生产者客户端：kafka-console-producer.sh --broker-list localhost:9092 --topic topic_1
+
+        // 从Kafka读： 新Source架构
         KafkaSource<String> kafkaSource = KafkaSource.<String>builder()
-                .setBootstrapServers("hadoop102:9092,hadoop103:9092,hadoop104:9092") // 指定kafka节点的地址和端口
+                .setBootstrapServers("192.168.8.34:9092") // 指定kafka节点的地址和端口
                 .setGroupId("atguigu")  // 指定消费者组的id
                 .setTopics("topic_1")   // 指定消费的 Topic
                 .setValueOnlyDeserializer(new SimpleStringSchema()) // 指定 反序列化器，这个是反序列化value
-                .setStartingOffsets(OffsetsInitializer.latest())  // flink消费kafka的策略
+//                .setStartingOffsets(OffsetsInitializer.latest())  // flink消费kafka的策略
+                .setStartingOffsets(OffsetsInitializer.earliest())  // flink消费kafka的策略
                 .build();
 
 
         env
-//                .fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "kafkasource")
-                .fromSource(kafkaSource, WatermarkStrategy.forBoundedOutOfOrderness(Duration.ofSeconds(3)), "kafkasource")
+                .fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "kafkaSource")
+//                .fromSource(kafkaSource, WatermarkStrategy.forBoundedOutOfOrderness(Duration.ofSeconds(3)), "kafkaSource")
                 .print();
 
 

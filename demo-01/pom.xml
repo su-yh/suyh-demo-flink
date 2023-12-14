@@ -11,6 +11,7 @@
     <modules>
         <module>d01</module>
         <module>d02</module>
+        <module>d03-source</module>
     </modules>
 
     <properties>
