@@ -22,7 +22,7 @@ public class WordCount01BatchDemo {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
         // 2. 读取数据：从文件中读取
-        DataSource<String> lineDS = env.readTextFile("demo-01/d01/input/word.txt");
+        DataSource<String> lineDS = env.readTextFile("demo-01/input/word.txt");
 
         // 3. 按行切分、转换 (word, 1)
         FlatMapOperator<String, Tuple2<String, Integer>> wordAndOne
