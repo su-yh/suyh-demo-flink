@@ -27,6 +27,8 @@ public class EnvDemo {
 //                .createLocalEnvironment()
 //        .createRemoteEnvironment("hadoop102", 8081,"/xxx")
 
+        // 流跟批的结果现象，表现在输出结果中。如果是批处理，那么效果就是所有的数据一起处理完，而按流处理就是一条一条的输出效果。
+        // 也就是说按流处理就会出现， (hello, 1) (hello, 2) 这样的输出会出现两次，每次+1。而批的话就一下得出最终结果 (hello, 2)
         // 流批一体：代码api是同一套，可以指定为 批，也可以指定为 流
         // 默认 STREAMING
         // 一般不在代码写死，提交时 参数指定：-Dexecution.runtime-mode=BATCH
