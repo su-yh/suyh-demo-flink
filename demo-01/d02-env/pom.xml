@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>d01</artifactId>
+    <artifactId>d02-env</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -32,18 +32,5 @@
             <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.apache.flink</groupId>-->
-<!--            <artifactId>flink-runtime-web</artifactId>-->
-<!--            <version>${flink.version}</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-
     </dependencies>
-
-    <dependencyManagement>
-
-    </dependencyManagement>
-
 </project>

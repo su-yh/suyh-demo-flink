@@ -9,8 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>d01</module>
-        <module>d02</module>
+        <module>d01-wc</module>
+        <module>d02-env</module>
         <module>d03-source</module>
         <module>d04-transform</module>
     </modules>

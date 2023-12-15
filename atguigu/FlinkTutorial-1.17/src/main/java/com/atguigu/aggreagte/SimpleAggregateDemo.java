@@ -22,6 +22,7 @@ public class SimpleAggregateDemo {
         DataStreamSource<WaterSensor> sensorDS = env.fromElements(
                 new WaterSensor("s1", 1L, 1),
                 new WaterSensor("s1", 11L, 11),
+                new WaterSensor("s1", 2L, 2),
                 new WaterSensor("s2", 2L, 2),
                 new WaterSensor("s3", 3L, 3)
         );
@@ -51,10 +52,11 @@ public class SimpleAggregateDemo {
          *   max\maxby的区别： 同min
          *       max：只会取比较字段的最大值，非比较字段保留第一次的值
          *       maxby：取比较字段的最大值，同时非比较字段 取 最大值这条数据的值
+         *          TODO: suyh - 也就是说maxBy 会将其他字段的值也更新，而max 不会更新其他字段的值。
          */
-//        SingleOutputStreamOperator<WaterSensor> result = sensorKS.max("vc");
+        SingleOutputStreamOperator<WaterSensor> result = sensorKS.max("vc");
 //        SingleOutputStreamOperator<WaterSensor> result = sensorKS.min("vc");
-        SingleOutputStreamOperator<WaterSensor> result = sensorKS.maxBy("vc");
+//        SingleOutputStreamOperator<WaterSensor> result = sensorKS.maxBy("vc");
 //        SingleOutputStreamOperator<WaterSensor> result = sensorKS.minby("vc");
 
         result.print();
