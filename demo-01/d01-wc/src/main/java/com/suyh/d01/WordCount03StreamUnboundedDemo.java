@@ -1,5 +1,6 @@
 package com.suyh.d01;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
@@ -11,14 +12,17 @@ import org.apache.flink.util.Collector;
  * @author suyh
  * @since 2023-11-16
  */
+@Slf4j
 public class WordCount03StreamUnboundedDemo {
     public static void main(String[] args) throws Exception {
+        log.info("suyh - main begin...");
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // IDEA 运行时，也可以看到webui, 一般用于本地测试
         // 需要引入一个依赖: flink-runtime-web
         // 然后就可以在本地使用 http://localhost:8081 进行访问 了。
         // StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
 
+        log.info("suyh - main(25) begin...");
         env.setParallelism(1);  // 全局指定并行度为：3
 
         // 利用netcat 监听7777 端口： nc -lk 7777
@@ -26,6 +30,8 @@ public class WordCount03StreamUnboundedDemo {
 
         SingleOutputStreamOperator<Tuple2<String, Integer>> sum = socketDS.flatMap(
                 (String value, Collector<Tuple2<String, Integer>> out) -> {
+                    log.info("suyh - value: {}", value);
+                    System.out.println("value: " + value);
                     // value: 一行数据
                     String[] words = value.split(" ");
                     for (String word : words) {
@@ -42,5 +48,6 @@ public class WordCount03StreamUnboundedDemo {
         sum.print();
 
         env.execute();
+        log.info("suyh - main finished.");
     }
 }
