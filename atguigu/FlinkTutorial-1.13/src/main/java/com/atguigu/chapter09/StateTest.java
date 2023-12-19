@@ -1,4 +1,4 @@
-package com.atguigu.chatper09;
+package com.atguigu.chapter09;
 
 import com.atguigu.chapter05.ClickSource;
 import com.atguigu.chapter05.Event;

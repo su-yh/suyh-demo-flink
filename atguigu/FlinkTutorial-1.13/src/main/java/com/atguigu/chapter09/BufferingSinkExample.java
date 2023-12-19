@@ -1,4 +1,4 @@
-package com.atguigu.chatper09;
+package com.atguigu.chapter09;
 
 /**
  * Copyright (c) 2020-2030 尚硅谷 All Rights Reserved
@@ -17,7 +17,6 @@ import org.apache.flink.api.common.state.ListStateDescriptor;
 import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.runtime.state.FunctionInitializationContext;
 import org.apache.flink.runtime.state.FunctionSnapshotContext;
-import org.apache.flink.runtime.state.storage.FileSystemCheckpointStorage;
 import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.checkpoint.CheckpointedFunction;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
