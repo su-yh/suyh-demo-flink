@@ -22,6 +22,6 @@
 
     <modules>
         <module>FlinkTutorial-1.13</module>
-<!--        <module>FlinkTutorial-1.17</module>-->
+        <module>FlinkTutorial-1.17</module>
     </modules>
 </project>

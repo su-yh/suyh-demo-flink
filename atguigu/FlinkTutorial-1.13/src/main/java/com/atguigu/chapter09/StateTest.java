@@ -7,7 +7,17 @@ import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
-import org.apache.flink.api.common.state.*;
+import org.apache.flink.api.common.state.AggregatingState;
+import org.apache.flink.api.common.state.AggregatingStateDescriptor;
+import org.apache.flink.api.common.state.ListState;
+import org.apache.flink.api.common.state.ListStateDescriptor;
+import org.apache.flink.api.common.state.MapState;
+import org.apache.flink.api.common.state.MapStateDescriptor;
+import org.apache.flink.api.common.state.ReducingState;
+import org.apache.flink.api.common.state.ReducingStateDescriptor;
+import org.apache.flink.api.common.state.StateTtlConfig;
+import org.apache.flink.api.common.state.ValueState;
+import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.common.time.Time;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
@@ -26,7 +36,7 @@ import org.apache.flink.util.Collector;
 public class StateTest {
     public static void main(String[] args) throws Exception{
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        env.setParallelism(1);
+        env.setParallelism(3);
 
         SingleOutputStreamOperator<Event> stream = env.addSource(new ClickSource())
                 .assignTimestampsAndWatermarks(WatermarkStrategy.<Event>forMonotonousTimestamps()
@@ -40,6 +50,7 @@ public class StateTest {
 
         stream.keyBy(data -> data.user)
                         .flatMap(new MyFlatMap())
+                .name("taskName")  // 这个任务名称可以在WEB UI 界面上显示
                                 .print();
 
 
@@ -48,6 +59,7 @@ public class StateTest {
 
     // 实现自定义的FlatMapFunction，用于Keyed State测试
     public static class MyFlatMap extends RichFlatMapFunction<Event, String>{
+        // suyh - 所有的状态都按key 进行划分，不同的key 得到的状态是不一样的。它的底层维护了一个类似map 的结构，对每个key 进行区分。
         // 定义状态
         ValueState<Event> myValueState;
         ListState<Event> myListState;
@@ -60,6 +72,13 @@ public class StateTest {
 
         @Override
         public void open(Configuration parameters) throws Exception {
+            System.out.println("job id: " + getRuntimeContext().getJobId());
+            // suyh - task name 都是一样的： Flat Map -> Sink: Print to Std. Out
+            System.out.println("task name: " + getRuntimeContext().getTaskName());
+            // suyh - (1/3) (2/3) (3/3)
+            System.out.println("task name with subtasks: " + getRuntimeContext().getTaskNameWithSubtasks());
+            // suyh - 该子任务的索引：0 1 2
+            System.out.println("index of this subtasks: " + getRuntimeContext().getIndexOfThisSubtask());
             ValueStateDescriptor<Event> valueStateDescriptor = new ValueStateDescriptor<>("my-state", Event.class);
             myValueState = getRuntimeContext().getState(valueStateDescriptor);
 

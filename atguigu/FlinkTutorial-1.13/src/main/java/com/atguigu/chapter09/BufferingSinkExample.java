@@ -33,19 +33,29 @@ public class BufferingSinkExample {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
 
+        // suyh - 开启检查点，并指定间隔时间
         env.enableCheckpointing(10000L);
 //        env.setStateBackend(new EmbeddedRocksDBStateBackend());
 
 //        env.getCheckpointConfig().setCheckpointStorage(new FileSystemCheckpointStorage(""));
 
         CheckpointConfig checkpointConfig = env.getCheckpointConfig();
+        // suyh - 状态一致性
         checkpointConfig.setCheckpointingMode(CheckpointingMode.EXACTLY_ONCE);
+        // suyh - 最小时间间隔
         checkpointConfig.setMinPauseBetweenCheckpoints(500);
+        // suyh - 超时未完成保存，丢弃该保存
         checkpointConfig.setCheckpointTimeout(60000);
+        // suyh - 最大并发检查点数量
         checkpointConfig.setMaxConcurrentCheckpoints(1);
+        // suyh - 是否开启外部持久化检查
         checkpointConfig.enableExternalizedCheckpoints(
+                // suyh - (RETAIN_ON_CANCELLATION)当作业被手动取消时，保留检查点，而不是删除
                 CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION);
+        // suyh - 允许不做分界线对齐，前提是 CheckpointingMode.EXACTLY_ONCE 而且并发检查点的数量是1
         checkpointConfig.enableUnalignedCheckpoints();
+        // suyh - 允许检查点失败的次数，当达到该值后作业将会被kill 掉
+        checkpointConfig.setTolerableCheckpointFailureNumber(0);
 
 
         SingleOutputStreamOperator<Event> stream = env.addSource(new ClickSource())
