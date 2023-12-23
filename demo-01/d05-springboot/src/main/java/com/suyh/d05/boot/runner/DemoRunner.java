@@ -19,6 +19,6 @@ public class DemoRunner {
     }
 
     public void showHello() {
-        System.out.println("hello spring boot DemoRunner");
+        log.info("hello spring boot DemoRunner");
     }
 }
