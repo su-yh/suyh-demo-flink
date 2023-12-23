@@ -107,6 +107,8 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <!--最小化打包，将没有用到的包排除掉-->
+                            <minimizeJar>false</minimizeJar>
                             <artifactSet>
                                 <excludes>
                                     <exclude>com.google.code.findbugs:jsr305</exclude>
@@ -128,11 +130,16 @@
                                 </filter>
                             </filters>
                             <transformers combine.children="append">
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer">
+                                <!--阻止META-INF/LICENSE和META-INF/LICENSE.txt-->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
+                                <!--合并所有notice文件-->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer">
+                                    <addHeader>true</addHeader>
                                 </transformer>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <!--整合spi服务中META-INF/services/文件夹的相关配置-->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <!--在META-INF/MANIFEST.MF文件中添加key: value 可以设置Main方法-->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>com.suyh.d05.WordCountSprintBootDemo</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
