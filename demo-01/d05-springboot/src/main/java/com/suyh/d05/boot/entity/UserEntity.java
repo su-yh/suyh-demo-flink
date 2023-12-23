@@ -1,0 +1,19 @@
+package com.suyh.d05.boot.entity;
+
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+/**
+ * @author suyh
+ * @since 2023-12-23
+ */
+@Data
+@TableName("`user`")
+public class UserEntity {
+    @TableId
+    private Long id;
+    private String name;
+    private Integer age;
+    private String email;
+}

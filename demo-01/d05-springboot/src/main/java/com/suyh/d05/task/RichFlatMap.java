@@ -1,6 +1,8 @@
 package com.suyh.d05.task;
 
 import com.suyh.d05.boot.DemoApplication;
+import com.suyh.d05.boot.entity.UserEntity;
+import com.suyh.d05.boot.mapper.UserMapper;
 import com.suyh.d05.boot.runner.DemoRunner;
 import com.suyh.d05.component.SuyhComponent;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
@@ -26,6 +28,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
     private ConfigurableApplicationContext context;
     private DemoRunner demoRunner;
     private SuyhComponent suyhComponent;
+    private UserMapper userMapper;
 
     @Override
     public void open(Configuration parameters) throws Exception {
@@ -34,6 +37,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
         context = SpringApplication.run(DemoApplication.class, args);
         demoRunner = context.getBean(DemoRunner.class);
         suyhComponent = context.getBean(SuyhComponent.class);
+        userMapper = context.getBean(UserMapper.class);
     }
 
     @Override
@@ -48,6 +52,8 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
         System.out.println("value: " + value);
         demoRunner.showHello();
         suyhComponent.showHello();
+        UserEntity userEntity = userMapper.selectById(1L);
+        System.out.println("userEntity: " + userEntity);
         // value: 一行数据
         String[] words = value.split(" ");
         for (String word : words) {
