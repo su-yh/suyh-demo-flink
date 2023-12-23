@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author suyh
  * @since 2023-12-23
@@ -16,4 +18,5 @@ public class UserEntity {
     private String name;
     private Integer age;
     private String email;
+    private Date createDate;
 }

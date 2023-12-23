@@ -1,10 +1,12 @@
 package com.suyh.d05.task;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suyh.d05.boot.DemoApplication;
 import com.suyh.d05.boot.entity.UserEntity;
 import com.suyh.d05.boot.mapper.UserMapper;
 import com.suyh.d05.boot.runner.DemoRunner;
 import com.suyh.d05.component.SuyhComponent;
+import com.suyh.d05.util.JsonUtils;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;
@@ -29,6 +31,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
     private DemoRunner demoRunner;
     private SuyhComponent suyhComponent;
     private UserMapper userMapper;
+    private ObjectMapper objectMapper;
 
     @Override
     public void open(Configuration parameters) throws Exception {
@@ -38,6 +41,8 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
         demoRunner = context.getBean(DemoRunner.class);
         suyhComponent = context.getBean(SuyhComponent.class);
         userMapper = context.getBean(UserMapper.class);
+        objectMapper = context.getBean(ObjectMapper.class);
+        JsonUtils.initMapper(objectMapper);
     }
 
     @Override
@@ -54,6 +59,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
         suyhComponent.showHello();
         UserEntity userEntity = userMapper.selectById(1L);
         System.out.println("userEntity: " + userEntity);
+        System.out.println("userEntity json: " + JsonUtils.serializable(userEntity));
         // value: 一行数据
         String[] words = value.split(" ");
         for (String word : words) {
