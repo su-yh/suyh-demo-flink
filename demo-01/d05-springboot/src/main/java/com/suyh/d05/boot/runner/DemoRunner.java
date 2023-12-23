@@ -1,4 +1,4 @@
-package com.suyh.d01.boot.runner;
+package com.suyh.d05.boot.runner;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

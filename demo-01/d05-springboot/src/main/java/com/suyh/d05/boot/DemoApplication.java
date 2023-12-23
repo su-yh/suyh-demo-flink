@@ -1,4 +1,4 @@
-package com.suyh.d01.boot;
+package com.suyh.d05.boot;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
