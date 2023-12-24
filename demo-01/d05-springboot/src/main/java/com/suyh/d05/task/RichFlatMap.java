@@ -15,6 +15,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.io.UrlResource;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * @author suyh
@@ -26,6 +36,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
     public RichFlatMap(String[] args) {
         this.args = args;
     }
+
     private final String[] args;
     private ConfigurableApplicationContext context;
     private DemoRunner demoRunner;
@@ -33,9 +44,96 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
     private UserMapper userMapper;
     private ObjectMapper objectMapper;
 
+    private static List<String> readCandidateConfigurations(URL url) {
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(new UrlResource(url).getInputStream(), StandardCharsets.UTF_8))) {
+            List<String> candidates = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = stripComment(line);
+                line = line.trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+                candidates.add(line);
+            }
+            return candidates;
+        } catch (IOException ex) {
+            throw new IllegalArgumentException("Unable to load configurations from location [" + url + "]", ex);
+        }
+    }
+
+    private static final String COMMENT_START = "#";
+
+    private static String stripComment(String line) {
+        int commentStart = line.indexOf(COMMENT_START);
+        if (commentStart == -1) {
+            return line;
+        }
+        return line.substring(0, commentStart);
+    }
+
     @Override
     public void open(Configuration parameters) throws Exception {
         super.open(parameters);
+
+        {
+            /*
+             *
+             * No qualifying bean of type 'org.springframework.boot.web.servlet.server.ServletWebServerFactory'
+             * Unable to start AnnotationConfigServletWebServerApplicationContext due to missing ServletWebServerFactory bean
+             *
+             * org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory  implement ServletWebServerFactory
+             *
+             * org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryConfiguration.EmbeddedTomcat
+             *
+             * org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration
+             *
+             *
+             * META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+             */
+            List<String> importCandidates = new ArrayList<>();
+
+            ClassLoader currentClassLoader = this.getClass().getClassLoader();
+            Enumeration<URL> urls = currentClassLoader.getResources("META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports");
+
+            while (urls.hasMoreElements()) {
+                URL url = urls.nextElement();
+                System.out.println("suyh - url: " + url.toString());
+                importCandidates.addAll(readCandidateConfigurations(url));
+            }
+
+            System.out.println("importCandidates size: " + importCandidates.size());
+        }
+//        {
+//            List<String> importCandidates = new ArrayList<>();
+//
+//            Enumeration<URL> urls = classLoader.getResources("META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports");
+//
+//            while (urls.hasMoreElements()) {
+//                URL url = urls.nextElement();
+//                System.out.println("suyh - url: " + url.toString());
+//                importCandidates.addAll(readCandidateConfigurations(url));
+//            }
+//
+//            System.out.println("importCandidates size: " + importCandidates.size());
+//        }
+//
+//        {
+//            ClassLoader classLoader = this.getClass().getClassLoader();
+//            ImportCandidates load = ImportCandidates.load(AutoConfiguration.class, classLoader);
+//            List<String> configurations = new ArrayList<>();
+//            load.forEach(configurations::add);
+//            System.out.println("configurations size: " + configurations.size());
+//            System.out.println("exists ServletWebServerFactoryAutoConfiguration: " + configurations.contains("org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration"));
+//        }
+//        {
+//            ImportCandidates load = ImportCandidates.load(AutoConfiguration.class, null);
+//            List<String> configurations = new ArrayList<>();
+//            load.forEach(configurations::add);
+//            System.out.println("[null] configurations size: " + configurations.size());
+//            System.out.println("[null] exists ServletWebServerFactoryAutoConfiguration: " + configurations.contains("org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration"));
+//        }
 
         context = SpringApplication.run(DemoApplication.class, args);
         demoRunner = context.getBean(DemoRunner.class);

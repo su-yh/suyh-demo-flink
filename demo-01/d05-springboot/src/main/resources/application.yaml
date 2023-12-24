@@ -7,4 +7,5 @@ spring:
       - application-datasource.yaml
       - application-json.yaml
 
+debug: true
 
