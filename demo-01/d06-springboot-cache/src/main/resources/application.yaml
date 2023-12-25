@@ -1,0 +1,13 @@
+
+
+
+spring:
+  config:
+    import:
+      - application-datasource.yaml
+      - application-json.yaml
+      - application-suyh.yaml
+      - application-web.yaml
+
+
+

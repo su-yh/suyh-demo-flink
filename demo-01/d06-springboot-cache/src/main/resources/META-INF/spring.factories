@@ -1,0 +1,8 @@
+
+
+
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.suyh.d06.config.TempConfiguration
+
+

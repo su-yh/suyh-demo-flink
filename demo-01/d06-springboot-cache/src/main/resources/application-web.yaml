@@ -1,0 +1,7 @@
+server:
+  port: 8100
+  servlet:
+    context-path: /suyh/temp/context
+
+
+
