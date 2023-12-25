@@ -17,8 +17,18 @@
   -->
 
 <configuration>
+    <property name="PATTERN_STDOUT" value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} | %highlight(${LOG_LEVEL_PATTERN:-%5p} ${PID:- }) | %boldYellow(%thread) %boldGreen(%-40.120logger:%L{39}) | %m%n"/>
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出 -->
+            <pattern>${PATTERN_STDOUT}</pattern>
+        </encoder>
+    </appender>
+
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>${log.file}</file>
+        <file>${log.file:-/log/UNDEFINE_LOGFILE.log}</file>
         <append>false</append>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{60}:%L %X{sourceThread} - %msg%n</pattern>
@@ -27,6 +37,7 @@
 
     <!-- This affects logging for both user code and Flink -->
     <root level="INFO">
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="file"/>
     </root>
 
