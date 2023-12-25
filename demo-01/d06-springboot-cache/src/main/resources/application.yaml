@@ -4,6 +4,7 @@
 spring:
   config:
     import:
+      - application-cache.yaml
       - application-datasource.yaml
       - application-json.yaml
       - application-suyh.yaml

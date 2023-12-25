@@ -1,4 +1,4 @@
-package com.suyh.d06.boot.entity;
+package com.suyh.d06.task.boot.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

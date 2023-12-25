@@ -1,7 +1,7 @@
 package com.suyh.d06;
 
-import com.suyh.d06.bootmain.FlinkBootMain;
-import com.suyh.d06.bootmain.config.properties.FlinkSpringBootProperties;
+import com.suyh.d06.job.bootmain.FlinkBootMain;
+import com.suyh.d06.job.bootmain.config.properties.FlinkSpringBootProperties;
 import com.suyh.d06.task.RichFlatMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.java.tuple.Tuple2;

@@ -1,7 +1,7 @@
-package com.suyh.d06.boot.mapper;
+package com.suyh.d06.task.boot.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.suyh.d06.boot.entity.UserEntity;
+import com.suyh.d06.task.boot.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

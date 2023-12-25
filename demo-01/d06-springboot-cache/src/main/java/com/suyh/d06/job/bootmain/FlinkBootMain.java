@@ -1,4 +1,4 @@
-package com.suyh.d06.bootmain;
+package com.suyh.d06.job.bootmain;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
