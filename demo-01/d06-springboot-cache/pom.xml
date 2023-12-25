@@ -51,6 +51,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
             <scope>${active-scope-value}</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -162,6 +168,13 @@
                     </plugin>
                 </plugins>
             </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <scope>${active-scope-value}</scope>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>spring-boot</id>
@@ -179,27 +192,12 @@
                             <layers>
                                 <enabled>true</enabled>
                             </layers>
+                            <excludeGroupIds>org.apache.flink,ch.qos.logback,org.apache.logging.log4j</excludeGroupIds>
                             <excludes>
                                 <!-- 打包的时候剔除掉lombok 包 -->
                                 <exclude>
                                     <groupId>org.projectlombok</groupId>
                                     <artifactId>lombok</artifactId>
-                                </exclude>
-                                <exclude>
-                                    <groupId>ch.qos.logback</groupId>
-                                    <artifactId>logback-classic</artifactId>
-                                </exclude>
-                                <exclude>
-                                    <groupId>ch.qos.logback</groupId>
-                                    <artifactId>logback-core</artifactId>
-                                </exclude>
-                                <exclude>
-                                    <groupId>org.apache.logging.log4j</groupId>
-                                    <artifactId>log4j-to-slf4j</artifactId>
-                                </exclude>
-                                <exclude>
-                                    <groupId>org.apache.logging.log4j</groupId>
-                                    <artifactId>log4j-api</artifactId>
                                 </exclude>
                                 <exclude>
                                     <groupId>org.slf4j</groupId>
