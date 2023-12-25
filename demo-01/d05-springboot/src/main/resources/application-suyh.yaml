@@ -1,6 +1,14 @@
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: suyh
+
 suyh:
   flink:
     parallelism: 1
-
 
 
