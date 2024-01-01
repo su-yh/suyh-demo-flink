@@ -31,6 +31,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 两个方案：
+ * 1. 在source 侧进行限流，限流的数量达到后面处理能力跟得上。
+ * 2. 在source 侧将最耗时的操作处理，这样后面的处理完全就能够跟得上了。
+ * 最大的问题在于，怎么验证是这个原因产生的。
+ * 可问题是，这样做肯定不会产生什么问题，这都不用验证。
+ * 最后还有一个问题就是barrier 的产生是否可以同步得到控制。
+ *
  * @author suyh
  * @since 2024-01-01
  */
