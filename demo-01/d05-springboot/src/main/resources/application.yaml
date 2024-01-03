@@ -6,6 +6,7 @@ spring:
     import:
       - application-datasource.yaml
       - application-json.yaml
+      - application-log.yaml
       - application-suyh.yaml
       - application-web.yaml
 
