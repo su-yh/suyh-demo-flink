@@ -13,7 +13,6 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.util.Collector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.io.UrlResource;
 
@@ -135,7 +134,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
 //            System.out.println("[null] exists ServletWebServerFactoryAutoConfiguration: " + configurations.contains("org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration"));
 //        }
 
-        context = SpringApplication.run(DemoApplication.class, args);
+        context = DemoApplication.getContext(args);
         demoRunner = context.getBean(DemoRunner.class);
         suyhComponent = context.getBean(SuyhComponent.class);
         userMapper = context.getBean(UserMapper.class);
