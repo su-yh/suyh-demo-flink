@@ -16,7 +16,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @since 2023-11-16
  */
 @Slf4j
-public class WordCountSprintBootDemo {
+public class FlinkDemoSprintBoot {
     public static void main(String[] args) throws Exception {
         log.info("suyh - main begin...");
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
