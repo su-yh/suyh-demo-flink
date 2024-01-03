@@ -1,6 +1,6 @@
-package com.suyh.d05.bootmain.config;
+package com.suyh.d05.boot.jobmgr.config;
 
-import com.suyh.d05.bootmain.config.properties.FlinkSpringBootProperties;
+import com.suyh.d05.boot.jobmgr.config.properties.FlinkSpringBootProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

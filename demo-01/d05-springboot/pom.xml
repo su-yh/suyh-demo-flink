@@ -42,6 +42,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- suyh - 注意：要把该依赖包上传到flink 的lib 目录下面 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-datagen</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

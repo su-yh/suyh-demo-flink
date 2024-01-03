@@ -1,10 +1,10 @@
 package com.suyh.d05.task;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suyh.d05.boot.DemoApplication;
-import com.suyh.d05.boot.entity.UserEntity;
-import com.suyh.d05.boot.mapper.UserMapper;
-import com.suyh.d05.boot.runner.DemoRunner;
+import com.suyh.d05.boot.taskmgr.TaskManagerSpringContext;
+import com.suyh.d05.boot.taskmgr.entity.UserEntity;
+import com.suyh.d05.boot.taskmgr.mapper.UserMapper;
+import com.suyh.d05.boot.taskmgr.runner.DemoRunner;
 import com.suyh.d05.component.SuyhComponent;
 import com.suyh.d05.util.JsonUtils;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
@@ -134,7 +134,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
 //            System.out.println("[null] exists ServletWebServerFactoryAutoConfiguration: " + configurations.contains("org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration"));
 //        }
 
-        context = DemoApplication.getContext(args);
+        context = TaskManagerSpringContext.getContext(args);
         demoRunner = context.getBean(DemoRunner.class);
         suyhComponent = context.getBean(SuyhComponent.class);
         userMapper = context.getBean(UserMapper.class);

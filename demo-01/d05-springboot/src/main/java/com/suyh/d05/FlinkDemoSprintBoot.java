@@ -1,15 +1,23 @@
 package com.suyh.d05;
 
-import com.suyh.d05.bootmain.FlinkBootMain;
-import com.suyh.d05.bootmain.config.properties.FlinkSpringBootProperties;
+import com.suyh.d05.boot.jobmgr.JobManagerSpringContext;
+import com.suyh.d05.boot.jobmgr.config.properties.FlinkSpringBootProperties;
 import com.suyh.d05.task.RichFlatMap;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.api.common.typeinfo.Types;
+import org.apache.flink.api.connector.source.util.ratelimit.RateLimiterStrategy;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.utils.ParameterTool;
+import org.apache.flink.connector.datagen.source.DataGeneratorSource;
+import org.apache.flink.connector.datagen.source.GeneratorFunction;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.util.StringUtils;
+
+import java.util.UUID;
 
 /**
  * @author suyh
@@ -18,6 +26,16 @@ import org.springframework.context.ConfigurableApplicationContext;
 @Slf4j
 public class FlinkDemoSprintBoot {
     public static void main(String[] args) throws Exception {
+        // 这里的参数处理，参数名与参数值之间是以空格分隔的，同时自定义的参数要放在最后面，这个我只是实验得出的结论，并非年源代码。
+        // 使用示例：'--suyh.profiles.active suyh'
+        ParameterTool parameterTool = ParameterTool.fromArgs(args);
+        String activeValue = parameterTool.get("suyh.profiles.active");
+        int port = 8888;
+        String suyhPort = parameterTool.get("suyh.port");
+        if (StringUtils.hasText(suyhPort)) {
+            port = Integer.parseInt(suyhPort);
+        }
+
         log.info("suyh - main begin...");
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         // IDEA 运行时，也可以看到webui, 一般用于本地测试
@@ -25,7 +43,7 @@ public class FlinkDemoSprintBoot {
         // 然后就可以在本地使用 http://localhost:8081 进行访问 了。
         // StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
 
-        ConfigurableApplicationContext context = SpringApplication.run(FlinkBootMain.class, args);
+        ConfigurableApplicationContext context = JobManagerSpringContext.getContext(args);
         FlinkSpringBootProperties properties = context.getBean(FlinkSpringBootProperties.class);
         log.info("suyh.flink.parallelism: {}", properties.getParallelism());
 
@@ -34,20 +52,34 @@ public class FlinkDemoSprintBoot {
             env.setParallelism(properties.getParallelism());
         }
 
-        // 因为两个spring boot web 会使用同一个端口，所以这里直接将jobmanager 里面的context 关闭掉。
-        context.close();
+        /*
+         * 数据生成器Source，四个参数：
+         *     第一个： GeneratorFunction接口，需要实现， 重写map方法， 输入类型固定是Long
+         *     第二个： long类型， 自动生成的数字序列（从0自增）的最大值(小于)，达到这个值就停止了
+         *     第三个： 限速策略， 比如 每秒生成几条数据
+         *     第四个： 返回的类型
+         */
+        DataGeneratorSource<String> dataGeneratorSource = new DataGeneratorSource<>(
+                new GeneratorFunction<Long, String>() {
+                    @Override
+                    public String map(Long value) throws Exception {
+                        return UUID.randomUUID().toString().replace("-", "");
+                    }
+                },
+                1_000_000,
+                RateLimiterStrategy.perSecond(1),
+                Types.STRING
+        );
 
-        // 利用netcat 监听7777 端口： nc -lk 7777
-        DataStreamSource<String> socketDS = env.socketTextStream("hadoop001", 8888);
-
-//        KeyedStream<String, String> keyedStream = socketDS.keyBy(value -> value);
-
-        SingleOutputStreamOperator<Tuple2<String, Integer>> sum = socketDS.flatMap(new RichFlatMap(args))
+        DataStreamSource<String> stringDataStreamSource
+                = env.fromSource(dataGeneratorSource, WatermarkStrategy.noWatermarks(), "data-generator");
+        SingleOutputStreamOperator<Tuple2<String, Integer>> sum = stringDataStreamSource.flatMap(new RichFlatMap(args))
                 .keyBy(value -> value.f0).sum(1);
 
         sum.print("last result");
 
         env.execute();
+        JobManagerSpringContext.closeContext();
         log.info("suyh - main finished.");
     }
 }

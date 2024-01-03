@@ -1,4 +1,4 @@
-package com.suyh.d05.boot;
+package com.suyh.d05.boot.taskmgr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,11 +8,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author suyh
- * @since 2023-12-22
+ * @since 2024-01-03
  */
 @SpringBootApplication
-public class DemoApplication {
-
+public class TaskManagerSpringContext {
     private static ConfigurableApplicationContext context;
     private static final ReentrantLock LOCK = new ReentrantLock();
 
@@ -21,7 +20,7 @@ public class DemoApplication {
             try {
                 LOCK.lock();
                 if (context == null) {
-                    context = SpringApplication.run(DemoApplication.class, args);
+                    context = SpringApplication.run(TaskManagerSpringContext.class, args);
                 }
             } finally {
                 LOCK.unlock();
