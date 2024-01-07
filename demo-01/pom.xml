@@ -15,7 +15,8 @@
 <!--        <module>d03-source</module>-->
 <!--        <module>d04-transform</module>-->
         <module>d05-springboot</module>
-<!--        <module>d06-springboot-cache</module>-->
+        <module>d00-flink-jars-package</module>
+        <!--        <module>d06-springboot-cache</module>-->
 <!--        <module>d07-async</module>-->
 <!--        <module>d08-source-custom</module>-->
     </modules>
