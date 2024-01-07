@@ -9,13 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-<!--        <module>d00-package</module>-->
+        <module>d00-flink-jars-package</module>
         <!--        <module>d01-wc</module>-->
         <!--        <module>d02-env</module>-->
 <!--        <module>d03-source</module>-->
 <!--        <module>d04-transform</module>-->
         <module>d05-springboot</module>
-        <module>d00-flink-jars-package</module>
         <!--        <module>d06-springboot-cache</module>-->
 <!--        <module>d07-async</module>-->
 <!--        <module>d08-source-custom</module>-->
