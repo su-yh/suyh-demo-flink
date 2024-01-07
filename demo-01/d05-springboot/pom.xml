@@ -111,7 +111,7 @@
                 <active-scope-value>provided</active-scope-value>
             </properties>
             <build>
-                <finalName>${project.artifactId}</finalName>
+                <finalName>d05-flink</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -150,6 +150,7 @@
                                                 <exclude>META-INF/*.SF</exclude>
                                                 <exclude>META-INF/*.DSA</exclude>
                                                 <exclude>META-INF/*.RSA</exclude>
+                                                <!--排除logback.xml 的日志配置文件，使用flink 自带的log4j 日志框架-->
                                                 <exclude>logback.xml</exclude>
                                             </excludes>
                                         </filter>
@@ -191,7 +192,7 @@
                 <active-scope-value>compile</active-scope-value>
             </properties>
             <build>
-                <finalName>${project.artifactId}</finalName>
+                <finalName>d05-springboot</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
