@@ -68,6 +68,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
             <scope>${active-scope-value}</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -110,8 +116,16 @@
             <properties>
                 <active-scope-value>provided</active-scope-value>
             </properties>
+            <!--suyh - 本地环境运行时打印日志-->
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
             <build>
-                <finalName>d05-flink</finalName>
+                <finalName>d05-flink-app</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>

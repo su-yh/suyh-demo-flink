@@ -4,4 +4,7 @@ server:
     context-path: /suyh/temp/context
 
 
+#spring:
+#  main:
+#    web-application-type: none
 
