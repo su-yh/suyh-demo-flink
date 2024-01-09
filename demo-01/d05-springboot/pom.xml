@@ -11,8 +11,6 @@
 
     <artifactId>d05-springboot</artifactId>
 
-    <description>考虑使用一个单例对象，对于jobmanager 以及taskmanager 各自去获取，主要是args 参数如何获取到。</description>
-
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
