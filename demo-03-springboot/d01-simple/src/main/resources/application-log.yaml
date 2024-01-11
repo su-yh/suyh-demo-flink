@@ -1,0 +1,6 @@
+
+
+logging:
+  config: ${log4j.configuration:}
+
+
