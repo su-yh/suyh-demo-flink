@@ -49,7 +49,9 @@ public class KeyByCheckpointDemo03 {
             env.disableOperatorChaining();
         }
 
-        env.enableCheckpointing(3_000, CheckpointingMode.EXACTLY_ONCE);
+        int checkpointSecond = 5;   // checkpoint 间隔时间
+        int stateTtlSecond = 3; // state 的ttl 时间
+        env.enableCheckpointing(checkpointSecond * 1000, CheckpointingMode.EXACTLY_ONCE);
         CheckpointConfig checkpointConfig = env.getCheckpointConfig();
         checkpointConfig.setCheckpointStorage("file:///opt/suyh/checkpoints");
         checkpointConfig.setMaxConcurrentCheckpoints(1);
@@ -123,7 +125,7 @@ public class KeyByCheckpointDemo03 {
 
                                 // 1.创建 StateTtlConfig
                                 StateTtlConfig stateTtlConfig = StateTtlConfig
-                                        .newBuilder(Time.seconds(5)) // 过期时间5s
+                                        .newBuilder(Time.seconds(stateTtlSecond)) // 过期时间
                                         .setUpdateType(StateTtlConfig.UpdateType.OnCreateAndWrite) // 状态 创建和写入（更新） 更新 过期时间
                                         .setStateVisibility(StateTtlConfig.StateVisibility.NeverReturnExpired) // 不返回过期的状态值
                                         .build();
@@ -139,7 +141,7 @@ public class KeyByCheckpointDemo03 {
                             public void processElement(WaterSensor value, Context ctx, Collector<String> out) throws Exception {
                                 // 先获取状态值，打印 ==》 读取状态
                                 String currentKey = ctx.getCurrentKey();
-                                out.collect("key: " + currentKey + ",vc 值=" + value.getVc());
+                                out.collect("key: " + currentKey + ", vc 值=" + value.getVc());
 
                                 lastVcState.update(value.getVc());
                             }
