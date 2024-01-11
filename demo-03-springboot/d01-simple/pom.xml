@@ -107,7 +107,17 @@
 
     <profiles>
         <profile>
-            <id>flink</id>
+            <!--本地跑idea 如果需要使用日志，则激活该选项-->
+            <id>flink-local_log</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>flink-base</id>
             <properties>
                 <active-scope-value>provided</active-scope-value>
             </properties>
@@ -120,7 +130,7 @@
                 </dependency>
             </dependencies>
             <build>
-                <finalName>d05-flink-app</finalName>
+                <finalName>${project.artifactId}-flink_jar</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -196,12 +206,12 @@
             </build>
         </profile>
         <profile>
-            <id>spring-boot</id>
+            <id>flink-springboot</id>
             <properties>
                 <active-scope-value>compile</active-scope-value>
             </properties>
             <build>
-                <finalName>d05-springboot</finalName>
+                <finalName>${project.artifactId}-springboot_jar</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -211,6 +221,7 @@
                             <layers>
                                 <enabled>true</enabled>
                             </layers>
+                            <!--排除flink 的所有依赖包，排除日志相关的所有依赖包-->
                             <excludeGroupIds>org.apache.flink,ch.qos.logback</excludeGroupIds>
                             <excludes>
                                 <!-- lombok 只在编译时有效 -->

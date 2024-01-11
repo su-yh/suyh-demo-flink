@@ -19,7 +19,7 @@
         <!--        <module>d07-async</module>-->
         <!--        <module>d08-source-custom</module>-->
         <module>d09-simple</module>
-        <module>key-by-checkpoint</module>
+<!--        <module>key-by-checkpoint</module>-->
     </modules>
 
     <properties>
