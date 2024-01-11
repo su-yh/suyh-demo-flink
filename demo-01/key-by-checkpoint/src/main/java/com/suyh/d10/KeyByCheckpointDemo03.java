@@ -71,27 +71,29 @@ public class KeyByCheckpointDemo03 {
                     @Override
                     public WaterSensor map(Long value) throws Exception {
                         long idCount = value / recordsPerCheckpoint + 1;
-                        int idMode = 0;
+
+                        int idModeFirst = 1;
+                        int idModeLast = 5;
+
+                        // 需要取一个对最终值取模的基础数值，  x % idMode = ...
+                        int idMode = idModeFirst;
                         for (int i = 0; i < idCount; i++) {
-                            int fileCount = i / 5;
-                            if ((fileCount % 2) == 0) {
-                                int stride = 1;
-                                idMode += stride;
-                            } else {
-                                int stride = -1;
-                                if (i % 5 == 0) {
-                                    // 如果没有这个自增，将会出现的现象是： 1 2 3 4 5 4 3 2 1 0
-                                    // 显然我期望的最大的只有5 最小的也只应该有1 ，这个0 是异常情况。
-                                    // 所以添加一个自增，在第一次自减时将它的值提升1 个数值。
-                                    idMode++;
-                                }
+                            // 如果没有判断，将会出现的现象是： 1 2 3 4 5 4 3 2 1 0
+                            // 显然我期望的最大的只有5 最小的也只应该有1 ，这个0 是异常情况。
+                            // 所以需要忽略每一个首次的自增与自减
+                            // 以期望达到效果：1 2 3 4 5   5 4 3 2 1   1 2 3 4 5   5 4 3 2 1 ...
+                            if (i % idModeLast != 0) {
+                                int fileCount = i / idModeLast;
+                                // 步长为1 则自增，步长为-1 则自减
+                                int stride = (fileCount % 2) == 0 ? 1 : -1;
                                 idMode += stride;
                             }
+
 //                            System.out.println("idMode: " + idMode);
                         }
                         assert idMode > 0;
                         long idValue = value % idMode + 1;
-                        System.out.println("idCount: " + idCount + ", idValue: " + idValue);
+//                        System.out.println("idCount: " + idCount + ", idValue: " + idValue);
                         WaterSensor waterSensor = new WaterSensor();
                         waterSensor.setId("s" + idValue);
                         waterSensor.setTs(value);
@@ -100,7 +102,7 @@ public class KeyByCheckpointDemo03 {
                     }
                 },
                 // 12 批checkpoint，每批recordsPerCheckpoint 数量
-                12 * recordsPerCheckpoint,
+                120 * recordsPerCheckpoint,
                 RateLimiterStrategy.perCheckpoint(recordsPerCheckpoint),
                 Types.GENERIC(WaterSensor.class)
         );
