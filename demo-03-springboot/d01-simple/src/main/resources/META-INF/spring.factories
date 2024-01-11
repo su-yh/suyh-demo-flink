@@ -3,6 +3,6 @@
 
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.suyh.d05.config.TempConfiguration
+  com.suyh.springboot.config.TempConfiguration
 
 

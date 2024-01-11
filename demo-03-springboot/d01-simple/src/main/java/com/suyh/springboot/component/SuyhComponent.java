@@ -1,4 +1,4 @@
-package com.suyh.d05.component;
+package com.suyh.springboot.component;
 
 import org.springframework.beans.factory.annotation.Value;
 

@@ -169,7 +169,7 @@
                                         <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                         <!--在META-INF/MANIFEST.MF文件中添加key: value 可以设置Main方法-->
                                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                            <mainClass>com.suyh.d05.FlinkDemoSprintBoot</mainClass>
+                                            <mainClass>com.suyh.springboot.FlinkDemoSprintBoot</mainClass>
                                         </transformer>
                                         <!--                                        &lt;!&ndash;阻止META-INF/LICENSE和META-INF/LICENSE.txt&ndash;&gt;-->
                                         <!--                                        <transformer implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>-->

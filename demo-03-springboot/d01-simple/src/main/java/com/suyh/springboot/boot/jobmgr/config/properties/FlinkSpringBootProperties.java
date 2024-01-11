@@ -1,4 +1,4 @@
-package com.suyh.d05.boot.jobmgr.config.properties;
+package com.suyh.springboot.boot.jobmgr.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

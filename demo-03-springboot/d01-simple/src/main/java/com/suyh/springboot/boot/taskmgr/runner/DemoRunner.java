@@ -1,7 +1,7 @@
-package com.suyh.d05.boot.taskmgr.runner;
+package com.suyh.springboot.boot.taskmgr.runner;
 
-import com.suyh.d05.boot.taskmgr.entity.UserEntity;
-import com.suyh.d05.boot.taskmgr.mapper.UserMapper;
+import com.suyh.springboot.boot.taskmgr.entity.UserEntity;
+import com.suyh.springboot.boot.taskmgr.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

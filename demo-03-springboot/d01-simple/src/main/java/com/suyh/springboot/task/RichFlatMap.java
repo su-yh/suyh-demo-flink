@@ -1,12 +1,12 @@
-package com.suyh.d05.task;
+package com.suyh.springboot.task;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.suyh.d05.boot.taskmgr.TaskManagerSpringContext;
-import com.suyh.d05.boot.taskmgr.entity.UserEntity;
-import com.suyh.d05.boot.taskmgr.mapper.UserMapper;
-import com.suyh.d05.boot.taskmgr.runner.DemoRunner;
-import com.suyh.d05.component.SuyhComponent;
-import com.suyh.d05.util.JsonUtils;
+import com.suyh.springboot.boot.taskmgr.TaskManagerSpringContext;
+import com.suyh.springboot.boot.taskmgr.entity.UserEntity;
+import com.suyh.springboot.boot.taskmgr.mapper.UserMapper;
+import com.suyh.springboot.boot.taskmgr.runner.DemoRunner;
+import com.suyh.springboot.component.SuyhComponent;
+import com.suyh.springboot.util.JsonUtils;
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.configuration.Configuration;

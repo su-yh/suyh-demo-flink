@@ -1,6 +1,6 @@
-package com.suyh.d05.config;
+package com.suyh.springboot.config;
 
-import com.suyh.d05.component.SuyhComponent;
+import com.suyh.springboot.component.SuyhComponent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

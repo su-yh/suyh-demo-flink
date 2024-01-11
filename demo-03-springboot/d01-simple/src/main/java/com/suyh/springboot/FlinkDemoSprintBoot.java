@@ -1,8 +1,8 @@
-package com.suyh.d05;
+package com.suyh.springboot;
 
-import com.suyh.d05.boot.jobmgr.JobManagerSpringContext;
-import com.suyh.d05.boot.jobmgr.config.properties.FlinkSpringBootProperties;
-import com.suyh.d05.task.RichFlatMap;
+import com.suyh.springboot.boot.jobmgr.JobManagerSpringContext;
+import com.suyh.springboot.boot.jobmgr.config.properties.FlinkSpringBootProperties;
+import com.suyh.springboot.task.RichFlatMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.typeinfo.Types;

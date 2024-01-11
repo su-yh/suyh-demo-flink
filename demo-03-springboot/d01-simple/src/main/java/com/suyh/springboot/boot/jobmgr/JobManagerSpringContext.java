@@ -1,4 +1,4 @@
-package com.suyh.d05.boot.jobmgr;
+package com.suyh.springboot.boot.jobmgr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
