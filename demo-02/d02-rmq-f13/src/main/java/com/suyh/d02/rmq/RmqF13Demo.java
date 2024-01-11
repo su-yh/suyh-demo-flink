@@ -1,6 +1,7 @@
 package com.suyh.d02.rmq;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.CheckpointingMode;
@@ -22,7 +23,7 @@ public class RmqF13Demo {
             .setUserName("admin")
             .setPassword("adminadmin")
             .setVirtualHost("/flinkhost")
-            .setPrefetchCount(100)
+            .setPrefetchCount(10)
             .setNetworkRecoveryInterval(30_000)
             .setConnectionTimeout(30_000)
             .setAutomaticRecovery(true)
@@ -33,6 +34,7 @@ public class RmqF13Demo {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
+        env.setRestartStrategy(RestartStrategies.fixedDelayRestart(2, 10000));
 
         env.setParallelism(2);
 
