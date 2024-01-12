@@ -43,8 +43,10 @@ public class d09Simple {
         }
 
         ReadableConfig configuration = env.getConfiguration();
+        // 这样可以在conf/flink-conf.yaml 文件中添加配置，在这里可以取到对应的配置值。
         String suyhValue = configuration.get(SUYH_CFG);
         System.out.println("suyh.flink.key: " + suyhValue);
+        log.info("suyh.flink.key: " + suyhValue);
 
         /*
          * 数据生成器Source，四个参数：
