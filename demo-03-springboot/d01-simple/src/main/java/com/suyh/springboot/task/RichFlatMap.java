@@ -1,6 +1,5 @@
 package com.suyh.springboot.task;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suyh.springboot.boot.taskmgr.TaskManagerSpringContext;
 import com.suyh.springboot.boot.taskmgr.entity.FlinkUserEntity;
 import com.suyh.springboot.boot.taskmgr.mapper.FlinkUserMapper;
@@ -37,11 +36,9 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
     }
 
     private final String[] args;
-    private ConfigurableApplicationContext context;
     private DemoRunner demoRunner;
     private SuyhComponent suyhComponent;
     private FlinkUserMapper flinkUserMapper;
-    private ObjectMapper objectMapper;
 
     private static List<String> readCandidateConfigurations(URL url) {
         try (BufferedReader reader = new BufferedReader(
@@ -134,18 +131,16 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
 //            System.out.println("[null] exists ServletWebServerFactoryAutoConfiguration: " + configurations.contains("org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration"));
 //        }
 
-        context = TaskManagerSpringContext.getContext(args);
+        ConfigurableApplicationContext context = TaskManagerSpringContext.getContext(args);
         demoRunner = context.getBean(DemoRunner.class);
         suyhComponent = context.getBean(SuyhComponent.class);
         flinkUserMapper = context.getBean(FlinkUserMapper.class);
-        objectMapper = context.getBean(ObjectMapper.class);
-        JsonUtils.initMapper(objectMapper);
     }
 
     @Override
     public void close() throws Exception {
         super.close();
-        context.close();
+        TaskManagerSpringContext.closeContext();
     }
 
     @Override

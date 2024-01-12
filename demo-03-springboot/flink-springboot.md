@@ -24,7 +24,39 @@
 如果是yarn 模式，则可以将这些依赖的jar 包提前上传到hdfs ，然后在提交job 的时候指定hdfs 的相应路径
 ```
 
-1. 首先使用spring-boot-maven-plugin 插件打包，然后解压出文件找到lib 目录，将该lib 目录上传到 hdfs://
+1. 打包spring boot 依赖
+
+   ```txt
+   首先使用spring-boot-maven-plugin 插件打包，然后解压出文件找到lib 目录，将该lib 目录上传到hdfs 目录： `hdfs://hadoopNameNode:8020/flink/usrlib/` usrlib 目录名不能自定义
+   ```
+
+   ```shell
+   # 对于当前工程，打包spring boot 的依赖，使用命令
+   mvn clean package -Pflink-springboot
+   ```
+
+2. 将flink 相关的包上传到hdfs 目录：`hdfs://hadoopNameNode:8020/flink/flink-dist` 
+
+   > 在该目录下，只能存在三个目录，且名称固定不能自定义：`lib`、`flink-dist`、`plugin`
+
+3. 将打包好的flink 运行程序对应的jar 包上传到hdfs 目录: `hdfs://hadoopNameNode:8020/flink/app-jar`
+
+4. 最后yarn 模式作业提交命令
+
+   ```shell
+   bin/flink run-application -t yarn-application -Dyarn.provided.lib.dirs="hdfs://hadoopNameNode:8020/flink/flink-dist" -Dyarn.provided.usrlib.dir="hdfs://hadoopNameNode:8020/flink/usrlib" hdfs://hadoopNameNode:8020/flink/app-jar/xxx.jar
+   ```
+
+5. 上面的两个`-D` 指定的参数可以直接配置在 `conf/flink-conf.yaml` 中
+
+   ```yaml
+   yarn.provided.lib.dirs="hdfs://hadoopNameNode:8020/flink/flink-dist"
+   yarn.provided.usrlib.dir="hdfs://hadoopNameNode:8020/flink/usrlib"
+   ```
+
+   这样提交命令就可以短不少
+
+6. 其他
 
 
 

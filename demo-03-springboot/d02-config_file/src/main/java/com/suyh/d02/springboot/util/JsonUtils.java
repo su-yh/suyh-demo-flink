@@ -1,4 +1,4 @@
-package com.suyh.springboot.util;
+package com.suyh.d02.springboot.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;

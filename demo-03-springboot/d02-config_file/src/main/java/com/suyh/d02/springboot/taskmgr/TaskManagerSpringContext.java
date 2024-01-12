@@ -1,4 +1,4 @@
-package com.suyh.springboot.boot.taskmgr;
+package com.suyh.d02.springboot.taskmgr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
