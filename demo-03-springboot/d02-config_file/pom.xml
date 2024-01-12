@@ -20,6 +20,41 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-runtime-web</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- suyh - 注意：要把该依赖包上传到flink 的lib 目录下面 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-datagen</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
             <scope>provided</scope> <!--spring-boot-maven-plugin 对该配置无视-->
@@ -54,41 +89,6 @@
             <id>flink-base</id>
 
             <dependencies>
-                <dependency>
-                    <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-streaming-java</artifactId>
-                    <version>${flink.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-clients</artifactId>
-                    <version>${flink.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-runtime-web</artifactId>
-                    <version>${flink.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <!-- suyh - 注意：要把该依赖包上传到flink 的lib 目录下面 -->
-                <dependency>
-                    <groupId>org.apache.flink</groupId>
-                    <artifactId>flink-connector-datagen</artifactId>
-                    <version>${flink.version}</version>
-                    <scope>provided</scope>
-                </dependency>
-
-                <dependency>
-                    <groupId>org.projectlombok</groupId>
-                    <artifactId>lombok</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-
                 <dependency>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-configuration-processor</artifactId>
@@ -165,9 +165,17 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${spring-boot.version}</version>
                         <configuration>
-                            <layers>
-                                <enabled>true</enabled>
-                            </layers>
+                            <excludeGroupIds>org.apache.flink,ch.qos.logback</excludeGroupIds>
+                            <excludes>
+                                <exclude>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </exclude>
+                                <exclude>
+                                    <groupId>org.slf4j</groupId>
+                                    <artifactId>slf4j-api</artifactId>
+                                </exclude>
+                            </excludes>
                         </configuration>
                         <executions>
                             <execution>
