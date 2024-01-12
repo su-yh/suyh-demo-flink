@@ -1,7 +1,7 @@
 package com.suyh.springboot.boot.taskmgr.runner;
 
-import com.suyh.springboot.boot.taskmgr.entity.UserEntity;
-import com.suyh.springboot.boot.taskmgr.mapper.UserMapper;
+import com.suyh.springboot.boot.taskmgr.entity.FlinkUserEntity;
+import com.suyh.springboot.boot.taskmgr.mapper.FlinkUserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,21 +17,21 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class DemoRunner {
-    private final UserMapper userMapper;
+    private final FlinkUserMapper flinkUserMapper;
 
     @PostConstruct
     public void run() throws Exception {
         log.info("DemoRunner run...");
         System.out.println("DemoRunner run...");
 
-        List<UserEntity> userEntities = userMapper.selectList(null);
+        List<FlinkUserEntity> userEntities = flinkUserMapper.selectList(null);
         if (userEntities == null || userEntities.isEmpty()) {
             System.out.println("userEntities is empty.");
             log.info("userEntities is empty.");
         } else {
             log.info("userEntities size: {}.", userEntities.size());
-            for (UserEntity userEntity : userEntities) {
-                log.info("userEntity info: {}", userEntity);
+            for (FlinkUserEntity flinkUserEntity : userEntities) {
+                log.info("userEntity info: {}", flinkUserEntity);
             }
         }
     }

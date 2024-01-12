@@ -18,6 +18,16 @@
 
 
 
+## yarn 模式
+
+```txt
+如果是yarn 模式，则可以将这些依赖的jar 包提前上传到hdfs ，然后在提交job 的时候指定hdfs 的相应路径
+```
+
+1. 首先使用spring-boot-maven-plugin 插件打包，然后解压出文件找到lib 目录，将该lib 目录上传到 hdfs://
+
+
+
 
 
 

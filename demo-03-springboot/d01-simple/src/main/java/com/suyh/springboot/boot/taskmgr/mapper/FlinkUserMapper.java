@@ -1,7 +1,7 @@
 package com.suyh.springboot.boot.taskmgr.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.suyh.springboot.boot.taskmgr.entity.UserEntity;
+import com.suyh.springboot.boot.taskmgr.entity.FlinkUserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-12-23
  */
 @Mapper
-public interface UserMapper extends BaseMapper<UserEntity> {
+public interface FlinkUserMapper extends BaseMapper<FlinkUserEntity> {
 }

@@ -56,7 +56,7 @@
 
     <profiles>
         <profile>
-            <id>flink</id>
+            <id>flink-base</id>
             <properties>
                 <active-scope-value>provided</active-scope-value>
             </properties>

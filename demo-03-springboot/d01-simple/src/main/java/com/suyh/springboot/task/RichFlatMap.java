@@ -2,8 +2,8 @@ package com.suyh.springboot.task;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.suyh.springboot.boot.taskmgr.TaskManagerSpringContext;
-import com.suyh.springboot.boot.taskmgr.entity.UserEntity;
-import com.suyh.springboot.boot.taskmgr.mapper.UserMapper;
+import com.suyh.springboot.boot.taskmgr.entity.FlinkUserEntity;
+import com.suyh.springboot.boot.taskmgr.mapper.FlinkUserMapper;
 import com.suyh.springboot.boot.taskmgr.runner.DemoRunner;
 import com.suyh.springboot.component.SuyhComponent;
 import com.suyh.springboot.util.JsonUtils;
@@ -40,7 +40,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
     private ConfigurableApplicationContext context;
     private DemoRunner demoRunner;
     private SuyhComponent suyhComponent;
-    private UserMapper userMapper;
+    private FlinkUserMapper flinkUserMapper;
     private ObjectMapper objectMapper;
 
     private static List<String> readCandidateConfigurations(URL url) {
@@ -137,7 +137,7 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
         context = TaskManagerSpringContext.getContext(args);
         demoRunner = context.getBean(DemoRunner.class);
         suyhComponent = context.getBean(SuyhComponent.class);
-        userMapper = context.getBean(UserMapper.class);
+        flinkUserMapper = context.getBean(FlinkUserMapper.class);
         objectMapper = context.getBean(ObjectMapper.class);
         JsonUtils.initMapper(objectMapper);
     }
@@ -154,9 +154,9 @@ public class RichFlatMap extends RichFlatMapFunction<String, Tuple2<String, Inte
         System.out.println("value: " + value);
         demoRunner.showHello();
         suyhComponent.showHello();
-        UserEntity userEntity = userMapper.selectById(1L);
-        System.out.println("userEntity: " + userEntity);
-        System.out.println("userEntity json: " + JsonUtils.serializable(userEntity));
+        FlinkUserEntity flinkUserEntity = flinkUserMapper.selectById(1L);
+        System.out.println("userEntity: " + flinkUserEntity);
+        System.out.println("userEntity json: " + JsonUtils.serializable(flinkUserEntity));
         // value: 一行数据
         String[] words = value.split(" ");
         for (String word : words) {

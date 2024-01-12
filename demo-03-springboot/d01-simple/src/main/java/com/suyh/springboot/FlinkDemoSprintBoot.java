@@ -2,6 +2,7 @@ package com.suyh.springboot;
 
 import com.suyh.springboot.boot.jobmgr.JobManagerSpringContext;
 import com.suyh.springboot.boot.jobmgr.config.properties.FlinkSpringBootProperties;
+import com.suyh.springboot.constants.DemoConfigConstants;
 import com.suyh.springboot.task.RichFlatMap;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
@@ -9,8 +10,6 @@ import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.connector.source.util.ratelimit.RateLimiterStrategy;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
-import org.apache.flink.configuration.ConfigOption;
-import org.apache.flink.configuration.ConfigOptions;
 import org.apache.flink.configuration.ReadableConfig;
 import org.apache.flink.connector.datagen.source.DataGeneratorSource;
 import org.apache.flink.connector.datagen.source.GeneratorFunction;
@@ -28,14 +27,6 @@ import java.util.UUID;
  */
 @Slf4j
 public class FlinkDemoSprintBoot {
-    public static final ConfigOption<String> SUYH_CFG =
-            ConfigOptions.key("state.savepoints.dir")
-                    .stringType()
-                    .defaultValue("suyh-default-value")
-                    .withDeprecatedKeys("savepoints.state.backend.fs.dir")
-                    .withDescription(
-                            "The default directory for savepoints. Used by the state backends that write savepoints to"
-                                    + " file systems (HashMapStateBackend, EmbeddedRocksDBStateBackend).");
 
     public static void main(String[] args) throws Exception {
         // 这里的参数处理，参数名与参数值之间是以空格分隔的，同时自定义的参数要放在最后面，这个我只是实验得出的结论，并非年源代码。
@@ -65,7 +56,7 @@ public class FlinkDemoSprintBoot {
         }
 
         ReadableConfig configuration = env.getConfiguration();
-        String suyhValue = configuration.get(SUYH_CFG);
+        String suyhValue = configuration.get(DemoConfigConstants.SUYH_CFG);
         System.out.println("suyhValue: " + suyhValue);
 
         /*
