@@ -1,4 +1,4 @@
-package com.suyh.d02.springboot.util;
+package com.suyh.d02.property.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 public class JsonUtils {
-    private static volatile ObjectMapper OBJECT_MAPPER;
+    private static ObjectMapper OBJECT_MAPPER;
 
     public static void initMapper(ObjectMapper mapper) {
         OBJECT_MAPPER = mapper;

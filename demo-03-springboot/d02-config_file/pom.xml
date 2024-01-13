@@ -60,12 +60,6 @@
             <artifactId>d02-flink-springboot-property</artifactId>
             <version>${project.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <scope>provided</scope> <!--spring-boot-maven-plugin 对该配置无视-->
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -73,11 +67,23 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
-            <scope>provided</scope> <!--spring-boot-maven-plugin 对该配置无视-->
-        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter</artifactId>-->
+<!--            <scope>provided</scope> &lt;!&ndash;spring-boot-maven-plugin 对该配置无视&ndash;&gt;-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.springframework.boot</groupId>-->
+<!--                    <artifactId>spring-boot-starter-logging</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-json</artifactId>-->
+<!--            <scope>provided</scope> &lt;!&ndash;spring-boot-maven-plugin 对该配置无视&ndash;&gt;-->
+<!--        </dependency>-->
     </dependencies>
 
     <dependencyManagement>
@@ -110,7 +116,7 @@
                 </dependency>
             </dependencies>
             <build>
-                <finalName>${project.artifactId}-flink_jar</finalName>
+                <finalName>${project.artifactId}-flink</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -169,7 +175,7 @@
             <id>flink-springboot</id>
 
             <build>
-                <finalName>${project.artifactId}-springboot_jar</finalName>
+                <finalName>${project.artifactId}-springboot</finalName>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>

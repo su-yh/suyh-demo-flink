@@ -1,6 +1,7 @@
-package com.suyh.d02.springboot.taskmgr;
+package com.suyh.d02.property.context;
 
 import com.suyh.d02.property.environment.FlinkSpringbootEnvironmentPostProcessor;
+import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -13,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 2024-01-03
  */
 @SpringBootApplication
-public class TaskManagerSpringContext {
+public class FlinkSpringContext {
     private static volatile ConfigurableApplicationContext context;
     private static final ReentrantLock LOCK = new ReentrantLock();
 
@@ -23,16 +24,12 @@ public class TaskManagerSpringContext {
                 LOCK.lock();
                 if (context == null) {
                     FlinkSpringbootEnvironmentPostProcessor.setConfigProperties(configProperties);
-                    context = SpringApplication.run(TaskManagerSpringContext.class, args);
+                    context = SpringApplication.run(FlinkSpringContext.class, args);
                 }
             } finally {
                 LOCK.unlock();
             }
         }
-    }
-
-    public static ConfigurableApplicationContext getContext() {
-        return context;
     }
 
     public static void closeContext() {
@@ -47,5 +44,13 @@ public class TaskManagerSpringContext {
                 LOCK.unlock();
             }
         }
+    }
+
+    public static ConfigurableApplicationContext getContext() {
+        return context;
+    }
+
+    public static <T> T getBean(Class<T> requiredType) throws BeansException {
+        return context.getBean(requiredType);
     }
 }

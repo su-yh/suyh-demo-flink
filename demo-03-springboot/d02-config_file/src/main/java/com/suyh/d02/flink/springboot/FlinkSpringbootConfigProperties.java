@@ -1,4 +1,4 @@
-package com.suyh.d02.springboot.environment;
+package com.suyh.d02.flink.springboot;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;

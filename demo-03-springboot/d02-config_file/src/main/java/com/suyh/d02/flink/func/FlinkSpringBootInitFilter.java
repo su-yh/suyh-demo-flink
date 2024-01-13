@@ -1,8 +1,8 @@
 package com.suyh.d02.flink.func;
 
-import com.suyh.d02.flink.vo.FlinkUserEntity;
-import com.suyh.d02.springboot.taskmgr.TaskManagerSpringContext;
-import com.suyh.d02.springboot.util.JsonUtils;
+import com.suyh.d02.flink.vo.FlinkUserTestEntity;
+import com.suyh.d02.property.context.FlinkSpringContext;
+import com.suyh.d02.property.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.functions.RichFilterFunction;
 import org.apache.flink.configuration.Configuration;
@@ -18,18 +18,28 @@ import java.util.Map;
  */
 @Slf4j
 public class FlinkSpringBootInitFilter<T> extends RichFilterFunction<T> {
+    private static final long serialVersionUID = -336842266457209033L;
+
+    private final Map<String, Object> configProperties;
+
     public FlinkSpringBootInitFilter(Map<String, Object> configProperties) {
-        System.out.println("spring boot init: " + FlinkSpringBootInitFilter.class.getSimpleName());
-        // TODO: suyh - 还没找到TaskManager 只做一次初始化的地方
-        //  因为在这里调用的话，每一个并行度都会调用一次。
-        TaskManagerSpringContext.init(new String[0], configProperties);
+        this.configProperties = configProperties;
+
+        // TODO: suyh - 不能在这里进行springboot 的初始化，因为它的实例化也是在 flink client 做的
+        //  然后对象会被传输到 task manager
     }
 
     @Override
     public void open(Configuration parameters) throws Exception {
         super.open(parameters);
 
-        FlinkUserEntity flinkUser = new FlinkUserEntity();
+        log.info("spring boot init: " + FlinkSpringBootInitFilter.class.getSimpleName());
+
+        // TODO: suyh - 还没找到TaskManager 只做一次初始化的地方
+        //  因为在这里调用的话，每一个并行度都会调用一次。
+        FlinkSpringContext.init(new String[0], configProperties);
+
+        FlinkUserTestEntity flinkUser = new FlinkUserTestEntity();
         flinkUser.setId(1L).setAge(18).setEmail("su787910081@163.com").setCreateDate(new Date());
 
         String flinkUserJson = JsonUtils.serializable(flinkUser);
