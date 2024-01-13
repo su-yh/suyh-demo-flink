@@ -38,7 +38,7 @@ public class FlinkSpringBootConfigDataDemo {
                         return UUID.randomUUID().toString().replace("-", "");
                     }
                 },
-                10,
+                300,
                 RateLimiterStrategy.perSecond(1),
                 Types.STRING
         );
