@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 public class JsonUtils {
-    private static ObjectMapper OBJECT_MAPPER;
+    private static volatile ObjectMapper OBJECT_MAPPER;
 
     public static void initMapper(ObjectMapper mapper) {
         OBJECT_MAPPER = mapper;
