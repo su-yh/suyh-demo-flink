@@ -1,9 +1,6 @@
 package com.suyh.d02.springboot.environment;
 
-import com.suyh.d02.flink.constants.FlinkSpringbootConfigConstants;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.configuration.ReadableConfig;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -12,59 +9,39 @@ import org.springframework.util.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * 解析yaml 文件，并转换成Map 对象
+ *
  * @author suyh
  * @since 2024-01-12
  */
 @Slf4j
 public class FlinkSpringbootConfigProperties {
-    private static FlinkSpringbootConfigProperties instance;
-    private static final ReentrantLock LOCK = new ReentrantLock();
 
-    @Getter
-    private Map<String, Object> propertySource;
-
-    public static FlinkSpringbootConfigProperties getInstance() {
-        if (instance == null) {
-            try {
-                LOCK.lock();
-                if (instance == null) {
-                    instance = new FlinkSpringbootConfigProperties();
-                }
-            } finally {
-                LOCK.unlock();
-            }
+    public static Map<String, Object> parse(String yamlPath) {
+        if (!StringUtils.hasText(yamlPath)) {
+            log.info("There are no yaml files that need to be parsed.");
+            return null;
         }
 
-        return instance;
-    }
+        log.info("Start parsing yaml: {}", yamlPath);
 
-    public void init(ReadableConfig configuration) {
-        String filePath = configuration.get(FlinkSpringbootConfigConstants.FLINK_SPRINGBOOT_CONFIG_FILE);
-        if (!StringUtils.hasText(filePath)) {
-            log.info("no config key: {}", FlinkSpringbootConfigConstants.FLINK_SPRINGBOOT_CONFIG_FILE);
-            return;
-        }
-
-        Resource resource = new FileSystemResource(filePath);
+        Resource resource = new FileSystemResource(yamlPath);
         YamlPropertiesFactoryBean yamlFactory = new YamlPropertiesFactoryBean();
         yamlFactory.setResources(resource);
         Properties properties = yamlFactory.getObject();
         if (properties == null) {
             log.warn("properties result is null.");
-            return;
+            return null;
         }
 
-        loadPropertySource(properties);
-    }
+        Map<String, Object> configProperties = new HashMap<>();
+        properties.forEach((key, value) -> {
+            configProperties.put(key.toString(), value);
+            log.info("flink springboot yaml property, {}: {}", key, value);
+        });
 
-    // 禁止并发访问
-    private synchronized void loadPropertySource(Properties properties) {
-        propertySource = new HashMap<>();
-        for (String key : properties.stringPropertyNames()) {
-            propertySource.put(key, properties.getProperty(key));
-        }
+        return configProperties;
     }
 }

@@ -1,0 +1,13 @@
+
+
+
+spring:
+  config:
+    import:
+      - application-log.yaml
+  main:
+    # 因为jackson 引入了spring-web 所以需要禁用 web 功能。
+    web-application-type: none
+
+
+

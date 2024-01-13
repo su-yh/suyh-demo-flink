@@ -1,8 +1,9 @@
-package com.suyh.d02.springboot.environment;
+package com.suyh.d02.property.environment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor;
 import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.boot.logging.DeferredLog;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
@@ -17,6 +18,20 @@ import java.util.Map;
 public class FlinkSpringbootEnvironmentPostProcessor
         implements EnvironmentPostProcessor, Ordered {
 
+    public static final DeferredLog LOGGER = new DeferredLog();
+
+    // 优先级更高的配置属性
+    private static volatile Map<String, Object> configProperties;
+
+    public static void setConfigProperties(Map<String, Object> configProperties) {
+        FlinkSpringbootEnvironmentPostProcessor.configProperties = configProperties;
+    }
+
+    public FlinkSpringbootEnvironmentPostProcessor() {
+        System.out.println("suyh - FlinkSpringbootEnvironmentPostProcessor construct.");
+        LOGGER.info("suyh - FlinkSpringbootEnvironmentPostProcessor construct.");
+    }
+
     @Override
     public int getOrder() {
         // 配置中心的属性配置优先级需要高于本地属性配置
@@ -29,12 +44,13 @@ public class FlinkSpringbootEnvironmentPostProcessor
         // 在启动时，这里首次加载配置中心。将配置中心的值加载下来并放到 environment 的属性源中。
         // 并按顺序放在系统属性源之后。
         MutablePropertySources propertySources = environment.getPropertySources();
-        Map<String, Object> configProperties = FlinkSpringbootConfigProperties.getInstance().getPropertySource();
         if (configProperties == null) {
             System.out.println("flink springboot config properties is null.");
+            LOGGER.info("flink springboot config properties is null.");
             return;
         }
         System.out.println("flink springboot config properties size: " + configProperties.size());
+        LOGGER.info("flink springboot config properties size: " + configProperties.size());
 
         PropertySource<?> propertySource = new MapPropertySource("flink-springboot", configProperties);
         propertySources.addLast(propertySource);

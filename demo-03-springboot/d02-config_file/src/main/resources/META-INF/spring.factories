@@ -1,4 +1,4 @@
-org.springframework.boot.env.EnvironmentPostProcessor=\
-  com.suyh.d02.springboot.environment.FlinkSpringbootEnvironmentPostProcessor
 org.springframework.context.ApplicationListener=\
   com.suyh.d02.springboot.listener.ApplicationStatedListener
+
+

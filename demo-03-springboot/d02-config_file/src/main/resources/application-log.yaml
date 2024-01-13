@@ -1,0 +1,12 @@
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  config: ${log4j.configuration:/home/suyunhong/module/flink-1.17.2/conf/log4j.properties}
+

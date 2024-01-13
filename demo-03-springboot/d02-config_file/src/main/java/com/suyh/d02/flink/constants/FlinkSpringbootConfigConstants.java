@@ -14,8 +14,8 @@ public class FlinkSpringbootConfigConstants {
                     // 配置项的类型
                     .stringType()
                     // 配置项的默认值
-                    // .defaultValue("suyh-default-value")
-                    .noDefaultValue()
+                     .defaultValue("/opt/application-json.yaml")
+//                    .noDefaultValue()
                     // 已经过期的key
                     // .withDeprecatedKeys("suyh.state.old-cfg")
                     // 对该配置的描述信息
