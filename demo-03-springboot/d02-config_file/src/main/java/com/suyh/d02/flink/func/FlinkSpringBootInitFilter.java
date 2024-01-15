@@ -33,11 +33,8 @@ public class FlinkSpringBootInitFilter<T> extends RichFilterFunction<T> {
 
         ExecutionConfig executionConfig = getRuntimeContext().getExecutionConfig();
         Map<String, String> sourceMap = executionConfig.toConfiguration().toMap();
-        Map<String, Object> objMap = new HashMap<>();
-        sourceMap.forEach((k, v) -> {
-            log.info("config, key: {}, value: {}", k, v);
-            objMap.put(k, v);
-        });
+        Map<String, Object> objMap = new HashMap<>(sourceMap);
+        objMap.forEach((k, v) -> log.info("flink config, key: {}, value: {}", k, v));
 //        ExecutionConfig.GlobalJobParameters globalJobParameters = executionConfig.getGlobalJobParameters();
 
 
