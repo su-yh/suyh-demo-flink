@@ -5,6 +5,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.lang.Nullable;
 
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
@@ -18,13 +19,17 @@ public class FlinkSpringContext {
     private static volatile ConfigurableApplicationContext context;
     private static final ReentrantLock LOCK = new ReentrantLock();
 
-    public static void init(String[] args, Map<String, Object> configProperties) {
+    // 允许调用者指定注解(@SpringBootApplication) 的类
+    public static void init(@Nullable Class<?> primarySource, String[] args, Map<String, Object> configProperties) {
         if (context == null) {
             try {
                 LOCK.lock();
                 if (context == null) {
                     FlinkSpringbootEnvironmentPostProcessor.setConfigProperties(configProperties);
-                    context = SpringApplication.run(FlinkSpringContext.class, args);
+                    if (primarySource == null) {
+                        primarySource = FlinkSpringContext.class;
+                    }
+                    context = SpringApplication.run(primarySource, args);
                 }
             } finally {
                 LOCK.unlock();

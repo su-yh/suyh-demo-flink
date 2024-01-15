@@ -1,6 +1,6 @@
 package com.suyh.d02.property.config;
 
-import com.suyh.d02.property.component.PropertyComponent;
+import com.suyh.d02.property.test.component.TestPropertyComponent;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonProperties;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 public class FlinkSpringbootAutoConfiguration {
 
     @Bean
-    public PropertyComponent propertyComponent(JacksonProperties jacksonProperties) {
-        return new PropertyComponent(jacksonProperties);
+    public TestPropertyComponent propertyComponent(JacksonProperties jacksonProperties) {
+        return new TestPropertyComponent(jacksonProperties);
     }
 }
