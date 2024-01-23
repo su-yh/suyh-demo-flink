@@ -5,16 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.suyh.demo</groupId>
+    <artifactId>flink-job</artifactId>
     <version>1.0.0</version>
-    <artifactId>d03-flink-springboot</artifactId>
 
     <packaging>pom</packaging>
 
     <modules>
-        <module>job-2nd</module>
-        <module>job-3rd</module>
-        <module>flink-plus</module>
-        <module>flink-job</module>
+        <module>flink-job-app</module>
+        <module>flink-job-core</module>
     </modules>
-
 </project>
