@@ -29,10 +29,10 @@ public class RmqSourceDemo {
         checkpointConfig.setMinPauseBetweenCheckpoints(2000);
 
         RMQConnectionConfig rmqConfig = new RMQConnectionConfig.Builder()
-                .setHost("192.168.8.34")
+                .setHost("isuyh.com")
                 .setPort(5672)
                 .setUserName("admin")
-                .setPassword("aiteer")
+                .setPassword("adminadmin")
                 .setVirtualHost("/flinkhost")
                 // TODO: suyh - 指定每批次从mq 中取多少条数据来处理，每批次为一个checkpoint 间隔时间。
                 //  只有在checkpoint 完成之后才会到MQ 中去取下一批次的数据。这样就可以做到限流的效果。

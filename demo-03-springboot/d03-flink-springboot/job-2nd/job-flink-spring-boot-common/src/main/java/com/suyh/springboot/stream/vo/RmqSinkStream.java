@@ -18,6 +18,6 @@ public class RmqSinkStream {
 
     private String exchange;
 
-    private String routingKeyCohort;
+    private String routingKey;
     private String routingKeyPaidRetention;
 }

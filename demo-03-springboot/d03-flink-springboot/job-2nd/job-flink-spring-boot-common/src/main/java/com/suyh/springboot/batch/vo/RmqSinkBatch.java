@@ -18,5 +18,5 @@ public class RmqSinkBatch {
 
     private String exchange = "";
 
-    private String routingKeyCohort;
+    private String routingKey;
 }

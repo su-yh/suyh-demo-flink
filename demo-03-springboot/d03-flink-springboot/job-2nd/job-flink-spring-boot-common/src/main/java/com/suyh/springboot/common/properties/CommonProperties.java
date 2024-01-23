@@ -1,10 +1,8 @@
 package com.suyh.springboot.common.properties;
 
 import com.suyh.springboot.common.constants.ConfigConstants;
-import com.suyh.springboot.common.vo.CohortThreadPoolProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.validation.annotation.Validated;
 
 /**
@@ -16,6 +14,4 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class CommonProperties {
 
-    @NestedConfigurationProperty
-    private final CohortThreadPoolProperties cohortThreadPool = new CohortThreadPoolProperties();
 }
