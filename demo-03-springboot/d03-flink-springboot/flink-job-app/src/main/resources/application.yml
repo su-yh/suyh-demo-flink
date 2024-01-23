@@ -1,0 +1,15 @@
+
+
+
+spring:
+  main:
+    web-application-type: none
+  config:
+    import:
+      - application-datasource.yaml
+      - application-log.yaml
+      - application-redis.yaml
+
+
+
+

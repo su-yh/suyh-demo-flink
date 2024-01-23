@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 3000
+      idle-timeout: 600000
+      maximum-pool-size: 50
+    url: jdbc:mysql://isuyh.com:3306/flink?useSSL=false&characterEncoding=UTF-8
+    username: flink
+    password: flink
+
+
+
+
+
+
+
+
+

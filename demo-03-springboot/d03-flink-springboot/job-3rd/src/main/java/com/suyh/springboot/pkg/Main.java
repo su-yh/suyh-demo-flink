@@ -1,4 +1,4 @@
-package com.suyh.flink.plus;
+package com.suyh.springboot.pkg;
 
 /**
  * @author suyh

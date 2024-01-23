@@ -1,0 +1,6 @@
+
+com.suyh.springboot.common.CommonAutoConfiguration
+com.suyh.springboot.stream.StreamJobAutoConfiguration
+com.suyh.springboot.batch.BatchJobAutoConfiguration
+
+

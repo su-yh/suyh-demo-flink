@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.suyh.demo</groupId>
-    <version>35</version>
+    <version>1.0.0</version>
     <artifactId>d03-flink-springboot</artifactId>
 
     <packaging>pom</packaging>
@@ -67,27 +67,15 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
-
-            <dependency>
-                <groupId>com.aiteer</groupId>
-                <artifactId>aiteer-flink-spring-boot-common</artifactId>
-                <version>35</version>
-            </dependency>
-            <dependency>
-                <groupId>com.suyh.demo</groupId>
-                <artifactId>flink-cohort-core</artifactId>
-                <version>35</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>flink-3rd</module>
+        <module>job-2nd</module>
+        <module>job-3rd</module>
         <module>flink-plus</module>
-        <module>flink-2nd</module>
-        <module>flink-cohort-batch</module>
-        <module>flink-cohort-core</module>
-        <module>flink-cohort-stream</module>
+        <module>flink-job-app</module>
+        <module>flink-job-core</module>
     </modules>
 
 </project>

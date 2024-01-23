@@ -1,0 +1,9 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.suyh.springboot.core.environment.FlinkSpringbootEnvironmentPostProcessor
+
+
+org.springframework.context.ApplicationListener=\
+  com.suyh.springboot.core.listener.DeferredLogListener,\
+  com.suyh.springboot.core.listener.ApplicationStatedListener
+
+
