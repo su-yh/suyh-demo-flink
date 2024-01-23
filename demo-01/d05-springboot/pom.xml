@@ -136,6 +136,7 @@
                                     <goal>shade</goal>
                                 </goals>
                                 <configuration>
+                                    <createDependencyReducedPom>false</createDependencyReducedPom>
                                     <!--最小化打包，将没有用到的包排除掉-->
                                     <minimizeJar>false</minimizeJar>
                                     <artifactSet>

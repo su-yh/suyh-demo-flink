@@ -1,0 +1,6 @@
+
+com.aiteer.springboot.common.CommonAutoConfiguration
+com.aiteer.springboot.stream.StreamJobAutoConfiguration
+com.aiteer.springboot.batch.BatchJobAutoConfiguration
+
+

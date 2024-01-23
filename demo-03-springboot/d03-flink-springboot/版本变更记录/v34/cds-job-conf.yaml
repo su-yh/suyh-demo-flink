@@ -1,0 +1,62 @@
+
+
+spring:
+  profiles:
+    # 在生产环境，该配置项为固定值(prod)，请勿修改。
+    active: prod
+
+
+  # mysql 数据库的相当配置
+  datasource:
+    # 该配置对应原 flink-job.properties 文件中的: mysql_url=mysql_url
+    url: jdbc:mysql://192.168.8.34:3306/flink-cds?useSSL=false&characterEncoding=UTF-8
+    # 该配置对应原 flink-job.properties 文件中的: mysql_username=mysql_username
+    username: flink-cds
+    # 该配置对应原 flink-job.properties 文件中的: mysql_password=mysql_password
+    password: flink-cds
+
+  # redis 配置
+  redis:
+    # 默认值：localhost
+    host: localhost
+    # 默认值：6379
+    port: 6379
+
+
+cds:
+  flink:
+    cds-rmq:
+      # rabbitmq sink 的exchange 和routing key
+      # 该配置对应原 flink-job.properties 文件中的: exchange=flink_output_topic_exchange
+      data-sink-exchange: flink_output_topic_exchange
+      # 该配置对应原 flink-job.properties 文件中的: cohort_routingKey=cohort_key
+      data-sink-routing-key: cohort_key
+      # 该配置对应原 flink-job.properties 文件中的: exchange=flink_output_topic_exchange
+      stat-sink-exchange: flink_output_topic_exchange
+      # 该配置对应原 flink-job.properties 文件中的: cohort_routingKey_paid=paid_retention_key
+      stat-sink-routing-key: paid_retention_key
+      # rabbitmq flink sink
+      sink-connect:
+        # 默认值：localhost
+        host: 192.168.8.34
+        # 默认值：5672
+        port: 5672
+        user-name: admin
+        password: aiteer
+        virtual-host: /flinkhost
+      # rabbitmq flink source
+      source-connect:
+        # 默认值：localhost
+        host: 192.168.8.34
+        # 默认值：5672
+        port: 5672
+        user-name: admin
+        password: aiteer
+        virtual-host: /flinkhost
+
+
+
+
+
+
+

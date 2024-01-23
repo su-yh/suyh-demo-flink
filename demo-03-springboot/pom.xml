@@ -15,5 +15,6 @@
 <!--        <module>d01-simple</module>-->
         <module>d02-config_file</module>
         <module>d02-flink-springboot-property</module>
+        <module>d03-flink-springboot</module>
     </modules>
 </project>

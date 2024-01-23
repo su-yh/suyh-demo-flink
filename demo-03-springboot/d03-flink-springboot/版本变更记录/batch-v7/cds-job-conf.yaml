@@ -1,0 +1,84 @@
+
+
+spring:
+  profiles:
+    # 在生产环境，该配置项为固定值(prod)，请勿修改。
+    active: prod
+
+
+  # mysql 数据库的相关配置
+  datasource:
+    # 该配置对应原文件(flink-cohort.properties)中mysql url
+    url: jdbc:mysql://192.168.8.34:3306/flink-cds?useSSL=false&characterEncoding=UTF-8
+    # 该配置对应原文件(flink-cohort.properties)中mysql username
+    username: flink-cds
+    # 该配置对应原文件(flink-cohort.properties)中mysql password
+    password: flink-cds
+    # 当前使用的数据源的连接池组件是hikari
+    hikari:
+      # 连接超时时间，单位：ms
+      connection-timeout: 3000
+      # 连接空闲超时时间，单位：ms
+      idle-timeout: 600000
+      # 最大连接池数量
+      maximum-pool-size: 50
+
+  # redis 配置
+  redis:
+    # 默认值：localhost
+    host: localhost
+    # 默认值：6379
+    port: 6379
+    # 密码，如果有才配置，没有则不用管
+    # password: password
+    # redis 索引序号，正常情况为：0-15
+    database: 0
+    # 读取超时
+    timeout: PT1S
+    # 连接超时
+    connect-timeout: PT5S
+    # lettuce 连接池配置
+    lettuce:
+      pool:
+        # 是否启用连接池
+        enabled: true
+        # 闲置连接的最大值
+        max-idle: 500
+        # 闲置连接最小值
+        min-idle: 10
+        # 最大连接数
+        max-active: 1000
+        # 连接池满时，最大阻塞时间
+        # PT2S 表示 2 秒钟
+        max-wait: PT2S
+        # 闲置连接驱逐器，运行间隔时间。为正时驱逐器启用，否则不执行闲置连接驱逐。
+        # PT5M 表示 5 分钟
+        time-between-eviction-runs: PT5M
+    # 如果使用redis 硝兵模式，需要使用sentinel标签，以及相对应的配置项，具体配置项，在这里不展开说明。
+    # sentinel:
+    # 如果使用redis 集群模式，需要使用cluster标签，以及相对应的配置项，具体配置项，在这里不展开说明。
+    # cluster:
+
+
+cds:
+  flink:
+    # 批算的相关配置
+    batch:
+      cds-rmq:
+        sink:
+          # exchange
+          exchange: "flink_output_topic_exchange"
+          # 对应原配置文件(flink-cohort.properties)中，cohort_routingKey
+          routing-key-cohort: "cohort_key_1"
+          connect:
+            host: 192.168.8.34
+            port: 5672
+            user-name: admin
+            password: aiteer
+            virtual-host: /flinkhost
+
+
+
+
+
+

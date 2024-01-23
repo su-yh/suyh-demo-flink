@@ -1,0 +1,23 @@
+
+
+
+
+
+cds:
+  flink:
+    # 批算的相关配置
+    batch:
+      cds-rmq:
+        sink:
+          # exchange
+          exchange: "flink_output_topic_exchange"
+          # 对应原配置文件(flink-cohort.properties)中，cohort_routingKey
+          routing-key-cohort: "cohort_key_1"
+          connect:
+            host: 192.168.8.34
+            port: 5672
+            user-name: admin
+            password: aiteer
+            virtual-host: /flinkhost
+
+
