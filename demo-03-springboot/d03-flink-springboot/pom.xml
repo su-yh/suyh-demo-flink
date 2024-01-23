@@ -74,7 +74,7 @@
                 <version>35</version>
             </dependency>
             <dependency>
-                <groupId>com.leomaster</groupId>
+                <groupId>com.suyh.demo</groupId>
                 <artifactId>flink-cohort-core</artifactId>
                 <version>35</version>
             </dependency>
