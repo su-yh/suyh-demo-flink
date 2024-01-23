@@ -105,10 +105,20 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.suyh.demo</groupId>
-                                    <artifactId>flink-plus</artifactId>
-                                    <outputDirectory>${project.build.directory}/flink-plus/</outputDirectory>
+                                    <groupId>${groupId}</groupId>
+                                    <artifactId>${artifactId}</artifactId>
+                                    <version>${version}</version>
+<!--                                    <outputDirectory>${project.build.directory}/flink-plus/</outputDirectory>-->
+                                    <outputDirectory>${basedir}/../build-dir/flink-plus/</outputDirectory>
                                     <includes>BOOT-INF/lib/**</includes>
+                                    <fileMappers>
+                                        <!--将 BOOT-INF/lib/ 替换成 ./ -->
+                                        <!-- 如果不替换，那么输出的目录里面就会存在 BOOT-INF/lib/ 原生的目录，这里主要是想把这个目录下面的所有jar 包拷贝出来到一个指定目录中。-->
+                                        <org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                                            <pattern>^\QBOOT-INF/lib/\E</pattern>
+                                            <replacement>./</replacement>
+                                        </org.codehaus.plexus.components.io.filemappers.RegExpFileMapper>
+                                    </fileMappers>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
