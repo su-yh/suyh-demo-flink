@@ -78,7 +78,7 @@
                             <directory>${basedir}/../../build-dir/usrlib/job-2nd/</directory>
                             <includes>
                                 <!-- 包含清理的文件/目录规则 -->
-                                <include>*</include>
+                                <include>${artifactId}.jar</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
