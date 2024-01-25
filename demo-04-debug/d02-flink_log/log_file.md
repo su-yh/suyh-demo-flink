@@ -107,7 +107,7 @@ out="${FLINK_LOG_PREFIX}.out"
 
 ## 结论
 
-> 以flink 1.18.0 版本为例，要修改flink 的日志相关的文件名以及配置，可按如下操作
+> 以flink 1.18.0 版本为例，只需要修改` bin/flink-daemon.sh` 以及`conf/log4j.properties`
 
 
 
