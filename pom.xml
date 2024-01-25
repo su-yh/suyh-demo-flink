@@ -34,6 +34,7 @@
 <!--        <module>atguigu</module>-->
 <!--        <module>demo-01</module>-->
         <!--        <module>demo-02</module>-->
-        <module>demo-03-springboot</module>
+<!--        <module>demo-03-springboot</module>-->
+        <module>demo-04-debug</module>
     </modules>
 </project>
