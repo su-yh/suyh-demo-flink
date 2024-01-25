@@ -1,5 +1,6 @@
 package com.suyh.d04.d01;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.RichFilterFunction;
 import org.apache.flink.api.common.state.ValueState;
@@ -20,12 +21,13 @@ import org.apache.flink.util.Collector;
  * @author suyh
  * @since 2024-01-25
  */
+@Slf4j
 public class DebugMultiJobApp {
     public static void main(String[] arg) {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(2);
 
-        long count = 100;
+        long count = 120;
         DataGeneratorSource<Long> dataGeneratorSource = new DataGeneratorSource<>(
                 new GeneratorFunction<Long, Long>() {
                     @Override
@@ -53,6 +55,7 @@ public class DebugMultiJobApp {
             private static final long serialVersionUID = 8334146449056209282L;
 
             private ValueState<Long> sumState;
+            private int indexOfThisSubtask;
 
             @Override
             public void open(Configuration parameters) throws Exception {
@@ -61,7 +64,7 @@ public class DebugMultiJobApp {
                 ValueStateDescriptor<Long> stateDescriptor = new ValueStateDescriptor<>("sumState", Types.LONG);
                 sumState = getRuntimeContext().getState(stateDescriptor);
 
-
+                indexOfThisSubtask = getRuntimeContext().getIndexOfThisSubtask();
             }
 
             @Override
@@ -76,7 +79,8 @@ public class DebugMultiJobApp {
                 Long sumValue = value + historySum;
                 sumState.update(sumValue);
 
-                String outResult = "key: " + currentKey + ", sum: " + sumValue;
+                String outResult = "indexOfThisSubtask: " + indexOfThisSubtask + ", key: " + currentKey + ", sum: " + sumValue;
+                log.info("outResult: {}", outResult);
 
                 out.collect(outResult);
             }

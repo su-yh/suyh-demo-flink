@@ -6,13 +6,7 @@
 
     <groupId>com.suyh.demo</groupId>
     <version>1.0.0-SNAPSHOT</version>
-    <modules>
-        <module>d01-debug-multi_job</module>
-        <module>d02-flink_log</module>
-    </modules>
-    <artifactId>demo-04-debug</artifactId>
-
-    <packaging>pom</packaging>
+    <artifactId>d02-flink_log</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

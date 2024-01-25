@@ -38,6 +38,11 @@
 > 两个并行作业运行的结果
 
 ```txt
+2> indexOfThisSubtask: 1, key: 0, sum: 1225
+2> indexOfThisSubtask: 1, key: 1, sum: 3725
 
+2> indexOfThisSubtask: 1, key: 1, sum: 3725
+2> indexOfThisSubtask: 1, key: 0, sum: 1225
 ```
 
+> 从上面的结果看似乎没有问题
