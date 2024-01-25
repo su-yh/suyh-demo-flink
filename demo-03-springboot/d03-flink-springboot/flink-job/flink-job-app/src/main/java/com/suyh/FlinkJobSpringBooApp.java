@@ -27,12 +27,8 @@ import java.util.UUID;
 public class FlinkJobSpringBooApp {
     public static final String ACTIVE_KEY = SuyhConstants.ACTIVE_KEY;
 
-    public static void main(String[] arg) throws Exception {
+    public static void main(String[] arg) {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        flinkStarter(env);
-    }
-
-    public static void flinkStarter(StreamExecutionEnvironment env) throws Exception {
         ReadableConfig readableConfig = env.getConfiguration();
 
         String yamlFilePath = readableConfig.get(SuyhConfigOptions.FLINK_SPRINGBOOT_CONFIG_PATH);
