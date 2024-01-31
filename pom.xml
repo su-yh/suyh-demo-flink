@@ -31,7 +31,7 @@
     </dependencyManagement>
 
     <modules>
-<!--        <module>atguigu</module>-->
+        <module>atguigu</module>
 <!--        <module>demo-01</module>-->
         <!--        <module>demo-02</module>-->
 <!--        <module>demo-03-springboot</module>-->

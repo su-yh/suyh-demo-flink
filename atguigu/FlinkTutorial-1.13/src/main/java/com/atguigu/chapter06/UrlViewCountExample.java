@@ -38,6 +38,7 @@ public class UrlViewCountExample {
 
         // 需要按照url分组，开滑动窗口统计
         stream.keyBy(data -> data.url)
+                // suyh - 第二个参数是处理时差或者时区或者时间偏移量。比如北京时间的一整天，则需要偏移8 小时。
                 .window(SlidingEventTimeWindows.of(Time.seconds(10), Time.seconds(5)))
                 // 同时传入增量聚合函数和全窗口函数
                 .aggregate(new UrlViewCountAgg(), new UrlViewCountResult())
