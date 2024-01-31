@@ -9,6 +9,7 @@
     <modules>
         <module>d01-debug-multi_job</module>
         <module>d02-flink_log</module>
+        <module>d03-flink_trigger</module>
     </modules>
     <artifactId>demo-04-debug</artifactId>
 
