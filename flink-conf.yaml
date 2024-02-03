@@ -1,0 +1,49 @@
+# flink 常用配置项
+
+
+# 在java 进程出现OOM 时自动生成dump 文件
+env.java.opts: -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/suyunhong/dump
+
+jobmanager.rpc.port: 9113
+jobmanager.bind-host: 0.0.0.0
+taskmanager.bind-host: 0.0.0.0
+
+taskmanager.numberOfTaskSlots: 8
+
+rest.bind-address: 0.0.0.0
+
+# rest.port: 8081
+
+# 状态后端使用rocksdb
+state.backend.type: rocksdb
+# 增量checkpoint
+state.backend.incremental: true
+# 持久化文件，checkpoint 存储目录
+# 该配置对应原 flink-job.properties 文件中的: checkpointpath=file:///opt/trend_oper/checkpoints
+state.checkpoints.dir: file:///home/suyunhong/module/stream/flink-1.18.0/cds/checkpoints
+
+# 启用checkpoint，没有该配置了
+# execution.checkpointing.enabled: false
+# 两次checkpoint 之间的间隔时间
+# 该配置对应原 flink-job.properties 文件中的: checkpointInterval = 120000
+execution.checkpointing.interval: 10000
+# 两次checkpoint 之间的最小间隔时间
+execution.checkpointing.min-pause: 6000
+# checkpoint 超时时间
+# 该配置对应原 flink-job.properties 文件中的: checkpointTimeout = 600000
+execution.checkpointing.timeout: 600000
+# checkpoint 最大并发量
+execution.checkpointing.max-concurrent-checkpoints: 1
+# 取消job 时checkpoint
+execution.checkpointing.externalized-checkpoint-retention: RETAIN_ON_CANCELLATION
+# checkpoint 允许失败次数
+# 该配置对应原 flink-job.properties 文件中的: checkpointFailureNumber = 2
+execution.checkpointing.tolerable-failed-checkpoints: 2
+# 启用/禁用算子链
+pipeline.operator-chaining.enabled: false
+
+web.upload.dir: /home/suyunhong/module/stream/flink-1.18.0/upload/
+
+
+# 保留checkpoint 历史数量
+state.checkpoints.num-retained: 3
