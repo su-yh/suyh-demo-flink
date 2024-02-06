@@ -105,6 +105,25 @@ out="${FLINK_LOG_PREFIX}.out"
 
 
 
+## 补充
+
+```txt
+按上面的配置，会在日志目录下面多出很多rockdb 的日志文件，所以需要将这些日志文件调整到别处。
+```
+
+### 补充配置
+
+```yaml
+# 将rockdb 的相关日志转到别的目录
+state.backend.rocksdb.log.dir: /home/suyunhong/temp
+```
+
+
+
+
+
+
+
 ## 结论
 
 > 以flink 1.18.0 版本为例，只需要修改` bin/flink-daemon.sh` 以及`conf/log4j.properties`

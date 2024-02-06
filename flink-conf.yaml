@@ -47,3 +47,6 @@ web.upload.dir: /home/suyunhong/module/stream/flink-1.18.0/upload/
 
 # 保留checkpoint 历史数量
 state.checkpoints.num-retained: 3
+
+# 将rockdb 的相关日志转到别的目录
+state.backend.rocksdb.log.dir: /home/suyunhong/temp
