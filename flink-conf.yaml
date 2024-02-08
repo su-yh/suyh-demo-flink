@@ -50,3 +50,8 @@ state.checkpoints.num-retained: 3
 
 # 将rockdb 的相关日志转到别的目录
 state.backend.rocksdb.log.dir: /home/suyunhong/temp
+
+# 将会在日志文件中打印输出内存使用情况
+metrics.reporter.slf4j.factory.class: org.apache.flink.metrics.slf4j.Slf4jReporterFactory
+metrics.reporter.slf4j.interval: 10 SECONDS
+
