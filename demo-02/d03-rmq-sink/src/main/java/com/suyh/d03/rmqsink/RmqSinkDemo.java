@@ -74,7 +74,8 @@ public class RmqSinkDemo {
         RMQConnectionConfig rmqConnectionConfig = builder.build();
         SimpleStringSchema schema = new SimpleStringSchema();
         String exchange = "flink_output_topic_exchange";
-        String routingKey = "cohort_key";
+        // String routingKey = "cohort_key";
+        String routingKey = "unknown_routing_key";
         ExchangeTopicPublicOptions<String> publicOptions = new ExchangeTopicPublicOptions<>(exchange, routingKey);
 
         return new ExchangeTopicRmqSink<>(rmqConnectionConfig, schema, publicOptions);

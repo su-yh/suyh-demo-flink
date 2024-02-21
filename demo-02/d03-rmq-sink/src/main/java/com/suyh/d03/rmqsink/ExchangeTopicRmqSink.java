@@ -27,7 +27,8 @@ public class ExchangeTopicRmqSink<IN> extends RMQSink<IN> {
         super(rmqConnectionConfig, schema, publishOptions, new SerializableReturnListener() {
             @Override
             public void handleReturn(int replyCode, String replyText, String exchange, String routingKey, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                log.info("handle return, replyCode: {}, replyText: {}, exchange: {}, routingKey: {}",
+                // 如果监听要生效，则 mandatory 的值必须为true
+                log.info("消息发送失败: handle return, replyCode: {}, replyText: {}, exchange: {}, routingKey: {}",
                         replyCode, replyText, exchange, routingKey);
                 System.out.println(replyCode + ", " + replyText + ", " + exchange + ", " + routingKey);
             }
