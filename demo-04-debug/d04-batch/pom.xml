@@ -16,6 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <flink.version>1.18.0</flink.version>
+        <flink-rmq.version>3.0.1-1.17</flink-rmq.version>
         <scala.binary.version>2.12</scala.binary.version>
     </properties>
 

@@ -84,6 +84,14 @@ flink 学习demo
 
 
 
+## 源码
+
+- 窗口触发器
+
+  > 关键类：`WindowOperator`
+
+- 其他
+
 
 
 ## 问题
