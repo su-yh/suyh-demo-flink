@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.serialization.SerializationSchema;
 import org.apache.flink.streaming.connectors.rabbitmq.RMQSink;
 import org.apache.flink.streaming.connectors.rabbitmq.RMQSinkPublishOptions;
-import org.apache.flink.streaming.connectors.rabbitmq.SerializableReturnListener;
 import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
 
 import java.io.IOException;
@@ -24,15 +23,7 @@ public class ExchangeTopicRmqSink<IN> extends RMQSink<IN> {
     public ExchangeTopicRmqSink(
             RMQConnectionConfig rmqConnectionConfig, SerializationSchema<IN> schema,
             RMQSinkPublishOptions<IN> publishOptions) {
-        super(rmqConnectionConfig, schema, publishOptions, new SerializableReturnListener() {
-            @Override
-            public void handleReturn(int replyCode, String replyText, String exchange, String routingKey, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                // 如果监听要生效，则 mandatory 的值必须为true
-                log.info("消息发送失败: handle return, replyCode: {}, replyText: {}, exchange: {}, routingKey: {}",
-                        replyCode, replyText, exchange, routingKey);
-                System.out.println(replyCode + ", " + replyText + ", " + exchange + ", " + routingKey);
-            }
-        });
+        super(rmqConnectionConfig, schema, publishOptions, ExchangeTopicRmqSink::handleReturn);
         this.publishOptions = publishOptions;
     }
 
@@ -43,10 +34,18 @@ public class ExchangeTopicRmqSink<IN> extends RMQSink<IN> {
         super.channel.exchangeDeclare(exchange, BuiltinExchangeType.TOPIC, true);
     }
 
+    // 这里的value 是实际的写到sink 中的值。
     @Override
     public void invoke(IN value) {
-        log.info("invoke value: {}", value);
-        System.out.println("value: " + value);
         super.invoke(value);
+    }
+
+    public static void handleReturn(
+            int replyCode, String replyText, String exchange, String routingKey,
+            AMQP.BasicProperties properties, byte[] body) throws IOException {
+        // 如果监听要失效，则 mandatory 的值必须为true
+        log.info("消息发送失败: handle return, replyCode: {}, replyText: {}, exchange: {}, routingKey: {}",
+                replyCode, replyText, exchange, routingKey);
+        System.out.println("消息发送失败: " + replyCode + ", " + replyText + ", " + exchange + ", " + routingKey);
     }
 }
