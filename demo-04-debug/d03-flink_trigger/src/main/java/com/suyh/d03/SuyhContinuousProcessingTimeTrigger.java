@@ -6,9 +6,14 @@ import org.apache.flink.streaming.api.windowing.triggers.TriggerResult;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 
 /**
+ * 有问题，但是问题在哪里还不知道，最终会影响到sink。
+ * 所以需要使用另一个带状态的那个。
+ *
  * @author suyh
  * @since 2024-01-31
+ * @deprecated 有点问题
  */
+@Deprecated
 public class SuyhContinuousProcessingTimeTrigger extends Trigger<Object, TimeWindow> {
     private static final long serialVersionUID = 1L;
 
