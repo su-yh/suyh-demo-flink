@@ -20,7 +20,7 @@
         <!--        <module>d08-source-custom</module>-->
 <!--        <module>d09-simple</module>-->
 <!--        <module>key-by-checkpoint</module>-->
-<!--        <module>d11-flink-cdc</module>-->
+        <module>d11-flink-cdc</module>
         <module>d12-flink-cdc</module>
     </modules>
 
