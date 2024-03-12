@@ -1,4 +1,4 @@
-package com.suyh.d03.rmqsink;
+package com.suyh.cdc.rmqsink;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;

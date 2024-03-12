@@ -1,4 +1,4 @@
-package com.suyh.d03.rmqsink;
+package com.suyh.cdc.rmqsink;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.BuiltinExchangeType;

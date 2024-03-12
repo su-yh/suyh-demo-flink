@@ -1,4 +1,4 @@
-package com.suyh.d03;
+package com.suyh.cdc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.functions.ReduceFunction;

@@ -1,4 +1,4 @@
-package com.suyh.d03.source;
+package com.suyh.cdc.source;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;

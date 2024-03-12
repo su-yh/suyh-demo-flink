@@ -68,10 +68,16 @@
         </dependency>
 
         <!--目前中央仓库还没有 jdbc的连接器，暂时用一个快照版本-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-connector-jdbc</artifactId>-->
+<!--            <version>1.17-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-jdbc</artifactId>
-            <version>1.17-SNAPSHOT</version>
+            <version>3.1.2-1.17</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

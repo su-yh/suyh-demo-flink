@@ -1,4 +1,4 @@
-package com.suyh.d03;
+package com.suyh.cdc;
 
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.triggers.Trigger;

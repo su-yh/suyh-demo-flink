@@ -1,4 +1,4 @@
-package com.suyh.d03.source;
+package com.suyh.cdc.source;
 
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
