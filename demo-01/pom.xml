@@ -22,6 +22,7 @@
 <!--        <module>key-by-checkpoint</module>-->
         <module>d11-flink-cdc</module>
         <module>d12-flink-cdc</module>
+        <module>d13-flink-mysql-source</module>
     </modules>
 
     <properties>
